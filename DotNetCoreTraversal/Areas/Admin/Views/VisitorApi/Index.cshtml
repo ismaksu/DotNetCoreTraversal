@@ -1,0 +1,267 @@
+﻿@model VisitorViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<h1>Index</h1>
+<div class="card">
+    <h3 class="card-header">API İşlemleri</h3>
+    <div class="card-body">
+        <div class="btn-group">
+            <button class="btn btn-primary" onclick="getDataList();">
+                <i class='bx bxs-down-arrow-circle'></i> &nbsp;
+                Verileri Çek
+            </button>
+            <button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#findModal">
+                <i class='bx bx-search-alt'></i> &nbsp;
+                Verileri Bul
+            </button>
+            <button id="preAddBtn" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#addModal">
+                <i class='bx bx-plus-circle'></i> &nbsp;
+                Veri Ekle
+            </button>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div id="dataDiv" class="border border-success text-success rounded shadow p-1">
+            <p class="p-2">
+                Veriler buraya gelecek.
+            </p>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+</div>
+
+<div class="modal fade" id="addModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="addHeader">Ziyaretçi Ekleme Sayfası</h3>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <input type="hidden" id="zhiddenId" />
+                <div class="form-group">
+                    @Html.Label("Ziyaretçi İsmi")
+                    <input autocomplete="false" type="text" class="form-control" id="zisim" placeholder="Ziyaretçi İsmi" />
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Ziyaretçi Soyismi")
+                    <input autocomplete="false" type="text" class="form-control" id="zsoyisim" placeholder="Ziyaretçi Soyismi" />
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Mail Adresi")
+                    <input autocomplete="false" type="email" class="form-control" id="zmail" placeholder="Ziyaretçi Mail Adresi" />
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Yaşadığı Şehir")
+                    <input autocomplete="false" type="text" class="form-control" id="zsehir" placeholder="Ziyaretçi Şehri" />
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Bulunduğu Ülke")
+                    <input autocomplete="false" type="text" class="form-control" id="zulke" placeholder="Ziyaretçi Ülkesi" />
+                </div>
+                <br />
+                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class='bx bx-x-circle'></i> &nbsp;
+                    İptal
+                </button>
+                <button id="btnAdd" class="btn btn-success" data-bs-dismiss="modal" onclick="addData();">
+                    <i id="iconAdd" class='bx bx-user-plus'></i> &nbsp;
+                    <span id="addSpan">Ziyaretçi Ekle</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="findModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>ID'ye Göre Silme İşlemi</h3>
+                <button class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                @Html.Label("Aranacak Ziyaretçi'nin ID'sini Giriniz")
+                <input autocomplete="false" type="number" id="txtId" class="form-control" placeholder="Ziyaretçi ID'si.." />
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                    <i class='bx bx-x-circle'></i> &nbsp;
+                    İptal
+                </button>
+                <button class="btn btn-info" data-bs-dismiss="modal" onclick="getDataByID();">
+                    <i class='bx bxs-search'></i> &nbsp;
+                    Verileri Ara
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function getDataList() {
+        $("#dataDiv").html("<div class='spinner-border text-primary'></div>");
+        $.ajax({
+            type: 'get',
+            url: '/Admin/VisitorApi/GetData/',
+            dataType: 'json',
+            contentType: "application/json",
+            success: function (func) {
+                let values = jQuery.parseJSON(func);
+                console.log(values);
+                let tableHtmljs = '<table class="table table-hover table-success"><tr><th>#</th><th>İsim</th><th>Soyisim</th><th>Şehir</th><th>Ülke</th><th>Mail Adresi</th><th>İşlemler</th></tr>';
+                $.each(values, (index, value) => {
+                    tableHtmljs += `<tr><th>${value.visitorID}</th><td>${value.name}</td><td>${value.surname}</td><td>${value.city}</td><td>${value.country}</td><td>${value.mail}</td><td>
+                                    <button id="btnUpdate" onclick="updateGetData(${value.visitorID});" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#addModal">
+                                        <i class='bx bx-revision'></i> &nbsp;
+                                        Veriyi Güncelle
+                                    </button> &nbsp;
+                                    <button onclick="deleteData(${value.visitorID});" class="btn btn-outline-danger">
+                                        <i class='bx bx-x-circle'></i> &nbsp;
+                                        Veriyi Sil
+                                    </button></td><tr>`
+                })
+                tableHtmljs += '</table>';
+                $("#dataDiv").html(tableHtmljs);
+            }
+        });
+    }
+
+    function getDataByID() {
+        let itemId = $("#txtId").val();
+
+        $.ajax({
+            type: 'get',
+            url: '/Admin/VisitorApi/GetDataByID/' + itemId,
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (func) {
+                let values = jQuery.parseJSON(func);
+                let tableHtmljs = '<table class="table table-hover table-success"><tr><th>#</th><th>İsim</th><th>Soyisim</th><th>Şehir</th><th>Ülke</th><th>Mail Adresi</th><th>İşlemler</th></tr>';
+                tableHtmljs += `<tr><th>${values.visitorID}</th><td>${values.name}</td><td>${values.surname}</td><td>${values.city}</td><td>${values.country}</td><td>${values.mail}</td><td>
+                                <button id="btnUpdate" onclick="updateGetData(${values.visitorID});" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#addModal">
+                                    <i class='bx bx-revision'></i> &nbsp;
+                                    Veriyi Güncelle
+                                </button>
+                                <button onclick="deleteData(${values.visitorID});" class="btn btn-outline-danger">
+                                    <i class='bx bx-x-circle'></i> &nbsp;
+                                    Veriyi Sil
+                                </button></td><tr></table>`;
+                $("#dataDiv").html(tableHtmljs);
+            }
+        });
+    }
+
+    function addData() {
+        $("#dataDiv").html("<div class='spinner-border text-primary'></div>");
+        let apiData = {
+            Name: $("#zisim").val(),
+            Surname: $("#zsoyisim").val(),
+            City: $("#zsehir").val(),
+            Country: $("#zulke").val(),
+            Mail: $("#zmail").val()
+        };
+
+        $.ajax({
+            type: 'post',
+            url: '/Admin/VisitorApi/AddData/',
+            data: apiData,
+            success: function (funcAdd) {
+                getDataList();
+                alert('Ziyaretçi başarı ile eklendi.')
+            }
+        });
+    }
+
+    function deleteData(itemId) {
+        $.ajax({
+            url: "/Admin/VisitorApi/DeleteData/" + itemId,
+            type: "delete",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (funcDel) {
+                getDataList();
+                alert("Ziyaretçi başarı ile silindi.");
+            }
+        });
+    }
+
+    function updateGetData(itemId) {
+        changeToEdit();
+
+        $.ajax({
+            type: 'get',
+            url: '/Admin/VisitorApi/GetDataByID/' + itemId,
+            dataType: 'json',
+            contentType: 'application/json',
+            success: function (func) {
+                let values = jQuery.parseJSON(func);
+                getUpdateDataToInputs(values);
+            }
+        });
+    }
+
+    function updateData() {
+        let visitorData = {
+            visitorID: $("#zhiddenId").val(),
+            name: $("#zisim").val(),
+            surname: $("#zsoyisim").val(),
+            city: $("#zsehir").val(),
+            country: $("#zulke").val(),
+            mail: $("#zmail").val()
+        };
+
+        $.ajax({
+            type: 'post',
+            url: '/Admin/VisitorApi/UpdateData/',
+            data: visitorData,
+            success: function (func) {
+                console.log(func);
+                getDataList();
+            }
+        });
+    }
+
+    $("#preAddBtn").click(x => {
+        cleanInputs();
+        $("#addHeader").html("Ziyaretçi Ekleme Sayfası");
+        $("#btnAdd").attr("class", "btn btn-success");
+        $("#btnAdd").attr("onclick", "addData();");
+        $("#addSpan").html("Ziyaretçi Ekle");
+        $("#iconAdd").attr("class", "bx bx-user-plus");
+    });
+
+    function getUpdateDataToInputs(values){
+        $("#zhiddenId").val(values.visitorID);
+        $("#zisim").val(values.name);
+        $("#zsoyisim").val(values.surname);
+        $("#zsehir").val(values.city);
+        $("#zulke").val(values.country);
+        $("#zmail").val(values.mail);
+    }
+
+    function cleanInputs() {
+        $("#zisim").val(""),
+        $("#zsoyisim").val(""),
+        $("#zsehir").val(""),
+        $("#zulke").val(""),
+        $("#zmail").val("")
+    }
+
+    function changeToEdit() {
+        cleanInputs();
+        $("#addHeader").html("Ziyaretçi Güncelleme Sayfası");
+        $("#btnAdd").attr("class", "btn btn-warning");
+        $("#btnAdd").attr("onclick", "updateData();");
+        $("#addSpan").html("Ziyaretçiyi Güncelle");
+        $("#iconAdd").attr("class", "bx bxs-save");
+    }
+</script>

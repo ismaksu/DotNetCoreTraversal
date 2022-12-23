@@ -1,0 +1,42 @@
+﻿@model DotNetCoreTraversal.Models.MailRequest
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <h3 class="card-header">Mail Gönderme Paneli</h3>
+    <div class="card-body">
+        <form method="post">
+
+            <div class="form-group">
+                @Html.Label("Mailde Gözükecek İsminiz")
+                <input type="text" asp-for="Name" class="form-control" placeholder="Adınız.." autocomplete="off" />
+            </div>
+            <br />
+
+            <div class="form-group">
+                @Html.Label("Alıcı Mail Adresi")
+                <input type="email" asp-for="ReceiverMail" class="form-control" placeholder="Alıcı Mail Adresi.." autocomplete="off" />
+            </div>
+            <br />
+
+            <div class="form-group">
+                @Html.Label("Konu Başlığı")
+                <input type="text" asp-for="Subject" class="form-control" placeholder="Mail konusu.." autocomplete="off" />
+            </div>
+            <br />
+
+            <div class="form-group">
+                @Html.Label("Mail İçeriği")
+                <textarea type="text" asp-for="Body" class="form-control" placeholder="Mail içeriği.."></textarea>
+            </div>
+            <br /><br />
+
+            <button type="submit" class="btn btn-primary">
+                <i class='bx bx-mail-send'></i>
+                Mail Yollama İşlemi Gerçekleştir
+            </button>
+        </form>
+    </div>
+</div>

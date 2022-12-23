@@ -1,0 +1,335 @@
+﻿@model Destination
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <h3 class="card-header">AJAX Şehir İşlemleri</h3>
+    <div class="card-body">
+        <div class="btn-group">
+            <button id="ajaxList" class="btn btn-outline-info">Şehir Listele</button>
+            <button id="ajaxFind" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalId">Şehir Bul</button>
+            <button id="ajaxAdd" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#modalAdd" onclick="preAddFunction();">Şehir Ekle</button>
+            <button id="ajaxUpdate" class="btn btn-outline-warning" data-bs-toggle="modal" data-bs-target="#modalId">Şehir Güncelle</button>
+            <button id="ajaxRemove" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalId">Şehir Sil</button>
+        </div>
+    </div>
+    <div class="card-footer">
+        <div class="row">
+            <div class="col-7 border border-primary text-primary rounded shadow p-3" id="cityDiv">
+                Veriler burada gözükecek.
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade" id="modalAdd">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addHeader">Şehir Ekleme Alanı</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                @Html.HiddenFor(x => x.DestinationID, new { @id = "hiddenID" })
+                @Html.HiddenFor(x => x.Status, new { @id = "hiddenStatus" })
+                <div class="form-group">
+                    @Html.Label("Şehir")
+                    <input placeholder="Paris" type="text" id="txtCity" class="form-control" autocomplete="off" />
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Gün/Gece")
+                    <input placeholder="3 Gün, 2 Gece" type="text" id="txtDayNight" class="form-control" />
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Fiyat")
+                    <div class="input-group input-group-merge">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control" id="txtPrice" placeholder="1500" />
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Kişi Kapasitesi")
+                    <div class="input-group input-group-merge">
+                        <input style="text-align: right;" type="number" id="txtCapacity" class="form-control" placeholder="50" />
+                        <span class="input-group-text">Kişi</span>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Açıklaması")
+                    <textarea placeholder="Avrupanın göz bebeği şehirlerinden birisi." id="txtDescription" class="form-control"></textarea>
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Kapak Görseli URL")
+                    <input type="text" id="txtCoverImage" class="form-control" />
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Görsel URL")
+                    <input type="text" id="txtImage" class="form-control" />
+                </div>
+                <br />
+                <div class="form-group">
+                    <label>2.Görsel URL</label>
+                    <input type="text" id="txtImage1" class="form-control" />
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Detaylar")
+                    <textarea placeholder="Bu şehirdeki insanlar kesinlikle sizi sıcak karşılayacaktır." class="form-control" id="txtDetails1"></textarea>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label>2.Detaylar</label>
+                    <textarea placeholder="Her şeyin yanısıra, hayat bu şehirde biraz pahalı." class="form-control" id="txtDetails2"></textarea>
+                </div>
+                <br />
+                <a class="btn btn-outline-secondary" data-bs-dismiss="modal">İptal</a>
+                <a class="btn btn-primary text-white" id="btnSubmit" data-bs-dismiss="modal" onclick="addFunction();">Rota Oluştur</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="modalId">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="headerId">ID'ye Göre Rota Bulma</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="form-group">
+                    <label id="lblId">Lütfen Arama Yapmak İstediğiniz Rota'nın ID'sini Giriniz</label>
+                    <input placeholder="ID.." type="number" id="txtId" class="form-control" autocomplete="off" />
+                </div>
+                <br />
+                <a class="btn btn-outline-secondary" data-bs-dismiss="modal">İptal</a>
+                <a class="btn btn-success text-white" id="btnFindId" data-bs-dismiss="modal" onclick="findFunction();">
+                    <i id="iconId" class='bx bx-search-alt'></i>
+                    <span id="spanId"> &nbsp; Arama Yap</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="~/lib/jquery/dist/jquery.min.map"></a>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    function listFunction() {
+        $("#cityDiv").html("<div class='spinner-border text-primary'></div>");
+        $.ajax({
+            contentType: "application/json",
+            dataType: "json",
+            type: "Get",
+            url: "/Admin/City/CityList/",
+            success: function (func) {
+                let w = jQuery.parseJSON(func);
+                console.log(w);
+                let tableHtml = "<table class='table table-hover'><tr><th> Şehir Adı </th> <th> Gün/Gece </th> <th> Fiyatı </th> <th> Kişi Kapasitesi </th> <tr>";
+                $.each(w, (index, value) => {
+                    tableHtml += `<tr><td>${value.City}</td><td>${value.DayNight}</td><td>$${value.Price}</td><td>${value.Capacity} Kişi</td></tr>`;
+                });
+                tableHtml += "</table>";
+                $("#cityDiv").html(tableHtml);
+            }
+        });
+    }
+
+    $("#ajaxList").click(function () {
+        listFunction();
+    });
+
+    function addFunction() {
+        let cityValues = {
+            City: $("#txtCity").val(),
+            DayNight: $("#txtDayNight").val(),
+            Price: $("#txtPrice").val(),
+            Image: $("#txtImage").val(),
+            Description: $("#txtDescription").val(),
+            Capacity: $("#txtCapacity").val(),
+            CoverImage: $("#txtCoverImage").val(),
+            Details1: $("#txtDetails1").val(),
+            Details2: $("#txtDetails2").val(),
+            Image1: $("#txtImage1").val()
+        };
+
+        $.ajax({
+            type: "post",
+            url: "/Admin/City/AddCityDestination/",
+            data: cityValues,
+            success: function (func) {
+                let result = jQuery.parseJSON(func);
+                listFunction();
+                alert("Rota başarı ile veritabanına eklendi!");
+            }
+        });
+    }
+
+    function findFunction() {
+        let id = $("#txtId").val();
+        $("#cityDiv").html("<div class='spinner-border text-info'></div>");
+        $.ajax({
+            contentType: "application/json",
+            dataType: "json",
+            type: "Get",
+            url: "/Admin/City/GetByID/",
+            data: { DestinationID: id },
+            success: function (func1) {
+                let result = jQuery.parseJSON(func1);
+                console.log(result);
+                if (result == null) {
+                    alert('Maalesef aradığınız ID ile eşleşen bir veri bulunamadı.');
+                    let errorHtml = "<h5 class='text-danger'>Veri bulunamadı!</h5>";
+                    $("#cityDiv").html(errorHtml);
+                }
+                else {
+                    let tableHtml = "<table class='table table-hover'><tr><th> Şehir Adı </th> <th> Gün/Gece </th> <th> Fiyatı </th> <th> Kişi Kapasitesi </th> <tr>";
+                    tableHtml += `<tr><td>${result.City}</td><td>${result.DayNight}</td><td>$${result.Price}</td><td>${result.Capacity} Kişi</td></tr></table>`;
+                    $("#cityDiv").html(tableHtml);
+                }
+            }
+        });
+    }
+
+    $("#ajaxFind").click(x => {
+        $("#headerId").html("ID'ye Göre Listeleme İşlemi");
+        $("#lblId").html("Lütfen Listelemek İstediğiniz Rota'nın ID'sini Giriniz");
+        $("#iconId").attr('class', 'bx bx-search-alt');
+        $("#btnFindId").attr('class', 'btn btn-success text-white');
+        $("#btnFindId").attr('onclick', 'findFunction();');
+        $("#btnFindId").removeAttr('data-bs-toggle');
+        $("#btnFindId").removeAttr('data-bs-target');
+        $("#spanId").text(' Arama Yap');
+    });
+
+    $("#ajaxUpdate").click(x => {
+        $("#headerId").html("ID'ye Göre Güncelleme İşlemi");
+        $("#lblId").html("Lütfen Güncellemek İstediğiniz Rota'nın ID'sini Giriniz");
+        $("#iconId").attr('class', 'bx bx-search-alt');
+        $("#btnFindId").attr('class', 'btn btn-info text-white');
+        $("#btnFindId").attr('onclick', 'preUpdateFunction();');
+        $("#btnFindId").attr('data-bs-toggle', 'modal');
+        $("#btnFindId").attr('data-bs-target', '#modalAdd');
+        $("#spanId").text(' Arama Yap');
+    });
+
+    $("#ajaxRemove").click(x => {
+        $("#headerId").html("ID'ye Göre Silme İşlemi");
+        $("#lblId").html("Lütfen <b class='text-danger'>SİLMEK</b> İstediğiniz Rota'nın ID'sini Giriniz");
+        $("#iconId").attr('class', 'bx bx-x-circle');
+        $("#btnFindId").attr('class', 'btn btn-danger text-white');
+        $("#btnFindId").attr('onclick', 'deleteFunction();');
+        $("#btnFindId").removeAttr('data-bs-toggle');
+        $("#btnFindId").removeAttr('data-bs-target');
+        $("#spanId").text(' Veriyi SİL');
+    });
+
+    function deleteFunction() {
+        let itemId = $("#txtId").val();
+        $.ajax({
+            url: "/Admin/City/DeleteCity/" + itemId,
+            type: "post",
+            contentType: "application/json",
+            dataType: "json",
+            success: function (func2) {
+                alert('Kayıt başarı ile silindi!');
+                listFunction();
+            }
+        });
+    }
+
+    function preAddFunction() {
+        $("#txtCity").val('');
+        $("#txtDayNight").val('');
+        $("#txtPrice").val('');
+        $("#txtImage").val('');
+        $("#txtDescription").val('');
+        $("#txtCapacity").val('');
+        $("#txtCoverImage").val('');
+        $("#txtDetails1").val('');
+        $("#txtDetails2").val('');
+        $("#txtImage1").val('');
+
+        $("#addHeader").html("Şehir Ekleme Alanı");
+        $("#btnSubmit").attr('class', 'btn btn-primary text-white');
+        $("#btnSubmit").attr('onclick', 'addFunction();');
+        $("#btnSubmit").html("Şehir Oluştur");
+    }
+
+    function preUpdateFunction() {
+        $("#addHeader").html("Şehir Güncelleme Alanı");
+        $("#btnSubmit").attr('class', 'btn btn-warning text-white');
+        $("#btnSubmit").attr('onclick', 'updateFunction();');
+        $("#btnSubmit").html("Şehri Güncelle");
+
+        let id = $("#txtId").val();
+
+        $.ajax({
+            contentType: "application/json",
+            dataType: "json",
+            type: "Get",
+            url: "/Admin/City/GetByID/",
+            data: { DestinationID: id },
+            success: function (func4) {
+                let result = jQuery.parseJSON(func4);
+                console.log(result);
+                if (result == null) {
+                    alert('Maalesef aradığınız ID ile eşleşen bir veri bulunamadı.');
+                    let errorHtml = "<h5 class='text-danger'>Veri bulunamadı!</h5>";
+                    $("#cityDiv").html(errorHtml);
+                }
+                else {
+                    $("#hiddenID").val(result.DestinationID);
+                    $("#hiddenStatus").val(result.Status);
+                    $("#txtCity").val(result.City);
+                    $("#txtDayNight").val(result.DayNight);
+                    $("#txtPrice").val(result.Price);
+                    $("#txtImage").val(result.Image);
+                    $("#txtDescription").val(result.Description);
+                    $("#txtCapacity").val(result.Capacity);
+                    $("#txtCoverImage").val(result.CoverImage);
+                    $("#txtDetails1").val(result.Details1);
+                    $("#txtDetails2").val(result.Details2);
+                    $("#txtImage1").val(result.Image1);
+                }
+            }
+        })
+    }
+
+    function updateFunction() {
+        let cityValues = {
+            DestinationID: $("#hiddenID").val(),
+            Status: $("#hiddenStatus").val(),
+            City: $("#txtCity").val(),
+            DayNight: $("#txtDayNight").val(),
+            Price: $("#txtPrice").val(),
+            Image: $("#txtImage").val(),
+            Description: $("#txtDescription").val(),
+            Capacity: $("#txtCapacity").val(),
+            CoverImage: $("#txtCoverImage").val(),
+            Details1: $("#txtDetails1").val(),
+            Details2: $("#txtDetails2").val(),
+            Image1: $("#txtImage1").val()
+        };
+
+        $.ajax({
+            type: "post",
+            url: "/Admin/City/UpdateCity/",
+            data: cityValues,
+            success: function (func3) {
+                alert("Veri başarı ile güncellendi!");
+                listFunction();
+            }
+        });
+    }
+</script>

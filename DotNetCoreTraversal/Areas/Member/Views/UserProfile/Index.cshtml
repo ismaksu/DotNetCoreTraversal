@@ -1,0 +1,86 @@
+﻿@model DotNetCoreTraversal.Areas.Member.Models.UserEditViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <h3 class="card-header">Kullanıcı Profili</h3>
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            @Html.HiddenFor(x => x.Image)
+            @Html.Label("Adınız")
+            <input type="text" asp-for="Name" class="form-control" />
+            <br />
+            @Html.Label("Soyadınız")
+            <input type="text" asp-for="Surname" class="form-control" />
+            <br />
+            @Html.Label("Mail Adresiniz")
+            <input type="email" asp-for="Email" class="form-control" />
+            <br />
+            <div class="form-group">
+                @Html.Label("Kullanıcı Resminiz")
+                <input type="file" asp-for="Image" class="form-control" />
+            </div>
+            @Html.Label("Telefon Numaranız")
+            <input type="text" asp-for="Phone" class="form-control" />
+            <br />
+            <button type="submit" class="btn btn-outline-info">
+                <i class="fa fa-floppy-o fa-2x"></i> &nbsp;
+                Değişiklikleri Kaydet
+            </button>
+            <a href="#" class="btn btn-link text-primary text-gradient" data-toggle="modal" data-target="#passwordModal">
+                <i class="fa fa-lock"></i> &nbsp;
+                Şifre Değiştir
+            </a>
+        </form>
+    </div>
+</div>
+<div class="modal fade" id="passwordModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="col-11">Şifre Değiştirme Alanı</h3>
+                <a class="btn btn-link" data-dismiss="modal"><i class="fa fa-times"></i></a>
+            </div>
+            <div class="modal-body">
+                @Html.Label("Mevcut Şifreniz")
+                <input type="password" required class="form-control" id="currPass" />
+                <br />
+                @Html.Label("Yeni Şifreniz")
+                <input type="password" required class="form-control" id="newPass" />
+                <br />
+                @Html.Label("Yeni Şifrenizi Doğrulayın")
+                <input type="password" required class="form-control" id="newPassAgain" />
+                <br />
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-outline-secondary" data-dismiss="modal">İptal</a>
+                <a href="#" class="btn btn-primary" onclick="savePassword();">Kaydet</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function savePassword() {
+        let passworddata = {
+            CurrentPassword: $("#currPass").val(),
+            NewPassword: $("#newPass").val(),
+            ConfirmPassword: $("#newPassAgain").val()
+        };
+        $.ajax({
+            type: "post",
+            url: "/Member/UserProfile/ChangePassword/",
+            data: passworddata,
+            success: function (func) {
+                console.log('İşlem başarılı.');
+                window.location.href = func.redirectToUrl;
+            },
+            error: function (response, stat, errorMessage) {
+                if (response.status == 400) {
+                    alert(response.responseText);
+                }
+            }
+        });
+    }
+</script>

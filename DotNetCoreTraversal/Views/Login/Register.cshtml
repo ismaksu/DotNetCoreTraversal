@@ -1,0 +1,113 @@
+﻿@model DotNetCoreTraversal.Models.UserRegisterViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ISM Traversal | Kayıt Ol</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- LINEARICONS -->
+    <link rel="stylesheet" href="~/loginPages/colorlib-regform-26/fonts/linearicons/style.css">
+
+    <!-- STYLE CSS -->
+    <link rel="stylesheet" href="~/loginPages/colorlib-regform-26/css/style.css">
+    <style>
+        #homeButton {
+            color: #99ccff;
+            background-color: gray;
+        }
+
+        #linkA:hover {
+            color: red;
+        }
+
+        #linkA:active {
+            color: green;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <div class="inner">
+            <img src="~/loginpages/colorlib-regform-26/images/image-rei.png" alt="" class="image-1" style="z-index: 5; margin-bottom: 10vh;" />
+
+            <a href="/Default/Index">
+                <button id="homeButton">
+                    <h4>
+                        <span class="lnr lnr-home"></span>
+                        Anasayfaya Dön
+                    </h4>
+                </button
+            </a>
+
+            <form method="post">
+                <h3>Yeni Hesap Oluştur</h3>
+                <br />
+                <span style="color:red" asp-validation-for="Username"></span>
+                <div class="form-holder">
+                    <span class="lnr lnr-user"></span>
+                    <input type="text" class="form-control" asp-for="Username" placeholder="Kullanıcı Adı" autocomplete="off">
+                </div>
+
+                <span style="color:red" asp-validation-for="Name"></span>
+                <div class="form-holder row">
+                    <span class="lnr lnr-user"></span>
+                    <input type="text" class="form-control" asp-for="Name" placeholder="İsim" autocomplete="off">
+                </div>
+
+                <span style="color:red" asp-validation-for="Surname"></span>
+                <div class="form-holder row">
+                    <span class="lnr lnr-user"></span>
+                    <input type="text" class="form-control" asp-for="Surname" placeholder="Soyisim" autocomplete="off">
+                </div>
+
+                <div class="form-holder">
+                    <span class="lnr lnr-phone-handset"></span>
+                    <input type="text" class="form-control" placeholder="Telefon Numarası">
+                </div>
+
+                <span style="color:red" asp-validation-for="Mail"></span>
+                <div class="form-holder">
+                    <span class="lnr lnr-envelope"></span>
+                    <input type="text" class="form-control" asp-for="Mail" placeholder="Mail Adresi">
+                </div>
+
+                <span style="color:red" asp-validation-for="Password"></span>
+                <div class="form-holder">
+                    <span class="lnr lnr-lock"></span>
+                    <input type="password" class="form-control" asp-for="Password" placeholder="Şifre">
+                </div>
+                <div style="color: red;" asp-validation-summary="ModelOnly">
+
+                </div>
+
+                <span style="color:red" asp-validation-for="ConfirmPassword"></span>
+                <div class="form-holder">
+                    <span class="lnr lnr-lock"></span>
+                    <input type="password" class="form-control" asp-for="ConfirmPassword" placeholder="Şifre Doğrulama">
+                </div>
+
+                <button>
+                    <span>Kayıt ol</span>
+                </button>
+                <br /><br />
+                <br />
+                <br />
+                <a href="/Login/Index/" id="linkA" style="transition: 0.2s;"><h5>Zaten bir hesabım var.</h5></a>
+            </form>
+            <br />
+            <img src="~/loginPages/colorlib-regform-26/images/image-2.png" alt="" class="image-2" style="margin-bottom: 7vh;">
+        </div>
+
+    </div>
+
+    <script src="~/loginPages/colorlib-regform-26/js/jquery-3.3.1.min.js"></script>
+    <script src="~/loginPages/colorlib-regform-26/js/main.js"></script>
+</body><!-- This templates was made by Colorlib (https://colorlib.com) -->
+</html>

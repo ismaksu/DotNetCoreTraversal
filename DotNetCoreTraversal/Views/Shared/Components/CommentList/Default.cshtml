@@ -1,0 +1,72 @@
+﻿@model List<Comment>
+
+@{ 
+    bool isOwnComment = false;
+}
+
+<div class="comments mt-5">
+    <h4 class="side-title ">Yorumlar (@ViewBag.Count)</h4>
+
+    @foreach (var item in Model)
+    {
+        if (item.AppUser.UserName == ViewBag.UserName)
+        {
+            isOwnComment = true;
+        }
+        else
+        {
+            isOwnComment = false;
+        }
+        <div class="media mt-4 @(isOwnComment ? "border-primary" : "")">
+            <div class="img-circle">
+                <img src="/userImages/@item.AppUser.ImageUrl" class="img-fluid" alt="...">
+            </div>
+            <div class="media-body">
+
+                <ul class="time-rply mb-2">
+                    <li>
+                        <a href="#URL" class="name mt-0 mb-2 d-block">@item.CommentAuthor</a>
+                        @item.CommentDate.ToString("dd MMMM yyyy ~ HH:mm")
+
+                    </li>
+                    @if (isOwnComment)
+                    {
+                        <li class="reply-last">
+                            <button onclick="deleteFunc(@item.CommentID);" class="btn btn-link text-danger">
+                                <b>Sil</b>
+                            </button>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="reply-last">
+                            <button class="btn btn-link reply">
+                                Yanıtla
+                            </button>
+                        </li>
+                    }
+
+                </ul>
+                <p>
+                    @item.CommentValue
+                </p>
+            </div>
+
+        </div>
+    }
+</div>
+
+<script>
+    function deleteFunc(id) {
+        $.ajax({
+            url: '/Comment/CommentDelete/' + id,
+            type: 'post',
+            success: function (func) {
+                $("#commentList").html(func);
+            },
+            error: function (response) {
+                alert('Bir hata oluştu!');
+            }
+        });
+    }
+</script>

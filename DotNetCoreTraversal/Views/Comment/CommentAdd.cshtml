@@ -1,0 +1,38 @@
+﻿@model int
+
+<div class="leave-comment-form mt-5" id="reply">
+    <h4 class="side-title mb-2">Bu konu hakkında görüşlerini belirt</h4>
+    <p class="mb-4">
+        Mail adresin başkaları ile paylaşılmayacaktır. "*" ile işaretli alanlar doldurulması zorunlu alanlardır.
+    </p>
+    <div id="ajaxForm">
+        <input id="desId" type="hidden" name="DestinationID" value="@Model" />
+        <div class="form-group">
+            <textarea id="commentValue" name="CommentValue" class="form-control" placeholder="Yorumun*" required=""
+                      spellcheck="false"></textarea>
+        </div>  
+
+        <div class="submit text-right">
+            <button class="btn btn-style btn-primary" onclick="postValues();" type="submit">Yorum Yap </button>
+        </div>
+    </div>
+</div>
+
+<script>
+    function postValues() {
+        let commentData = {
+            DestinationID: $("#desId").val(),
+            CommentValue: $("#commentValue").val()
+        };
+
+        $.ajax({
+            url: "/Comment/CommentAdd/",
+            data: commentData,
+            type: "post",
+            success: function (func) {
+                $("#commentValue").val("");
+                $("#commentList").html(func);
+            }
+        })
+    }
+</script>

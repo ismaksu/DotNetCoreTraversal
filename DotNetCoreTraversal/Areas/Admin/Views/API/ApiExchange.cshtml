@@ -1,0 +1,24 @@
+﻿@model IEnumerable<ApiExchangeViewModel.Exchange_Rates>
+@{
+    ViewData["Title"] = "ApiExchange";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <h3 class="card-header">Booking API Kurlar (TRY/---)</h3>
+    <div class="card-body">
+        <table class="table table-hover">
+            <tr>
+                <th>Currency</th>
+                <th>Buy Rate</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.currency</td>
+                    <td>@item.exchange_rate_buy</td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>

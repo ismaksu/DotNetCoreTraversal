@@ -1,0 +1,34 @@
+﻿@model AnnouncementUpdateDTO
+@{
+    ViewData["Title"] = "UpdateAnnouncement";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <h3 class="card-header">Duyuru Güncelleme Paneli</h3>
+    <div class="card-body">
+        <div class="form-group">
+            <form method="post">
+                @Html.HiddenFor(x => x.AnnouncementID)
+                @Html.HiddenFor(x => x.Date)
+                <div class="form-group">
+                    @Html.Label("Duyuru Başlığı")
+                    <input class="form-control" type="text" maxlength="65" placeholder="Duyuru Başlığı.." asp-for="Title" />
+                    <span class="text-danger" asp-validation-for="Title"></span>
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Duyuru İçeriği")
+                    <textarea class="form-control" type="text" maxlength="850" placeholder="Duyuru İçeriği.." asp-for="Content"></textarea>
+                    <span class="text-danger" asp-validation-for="Content"></span>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-warning" href="/Admin/Announcement/UpdateAnnouncement/@Model.AnnouncementID">
+                    <i class='bx bx-revision'></i> &nbsp;
+                    Duyuruyu Güncelle
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,69 @@
+﻿@model List<AnnouncementListDTO>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <h3 class="card-header">Duyuru Listesi</h3>
+    <div class="card-body">
+        <table class="table table-hover" style="zoom: 90%;">
+            <tr>
+                <th>#</th>
+                <th>Başlık</th>
+                <th>İçerik</th>
+                <th>İşlemler</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th>@item.AnnouncementID</th>
+                    <td>
+                        @if (item.Title != null && item.Title.Length >= 40)
+                        {
+                            @item.Title.Substring(0, item.Title.Substring(0, 40).LastIndexOf(" "))
+
+                            <i>...</i>
+                        }
+                        else
+                        {
+                            @item.Title
+                        }
+                    </td>
+                    <td>
+                        @if (item.Content != null && item.Content.Length >= 50)
+                        {
+                            @item.Content.Substring(0, item.Content.Substring(0, 50).LastIndexOf(" "))
+
+                            <i>...</i>
+                        }
+                        else
+                        {
+                            @item.Content
+                        }
+                    </td>
+                    <td style="white-space: nowrap;">
+                        <a href="#" class="btn btn-info">
+                            <i class='bx bxs-detail'></i> &nbsp;
+                            Detaylar
+                        </a>
+                        <a href="/Admin/Announcement/UpdateAnnouncement/@item.AnnouncementID/" class="btn btn-outline-warning">
+                            <i class='bx bx-edit-alt'></i> &nbsp;
+                            Güncelle
+                        </a>
+                        <a href="/Admin/Announcement/DeleteAnnouncement/@item.AnnouncementID/" class="btn btn-outline-danger">
+                            <i class='bx bx-bell-minus'></i> &nbsp;
+                            Duyuruyu Sil
+                        </a>
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div class="card-footer">
+        <a href="/Admin/Announcement/AddAnnouncement/" class="btn btn-outline-primary">
+            <i class='bx bx-alarm-add'></i> &nbsp;
+            Yeni Duyuru Oluştur
+        </a>
+    </div>
+</div>

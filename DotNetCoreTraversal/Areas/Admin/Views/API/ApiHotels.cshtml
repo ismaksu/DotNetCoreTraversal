@@ -1,0 +1,41 @@
+﻿@model IEnumerable<ApiHotelListViewModel.Result>
+@{
+    ViewData["Title"] = "ApiHotels";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+
+    int hotelCount = 0;
+    float score;
+}
+
+<div class="card">
+    <h3 class="card-header">Booking API Otel Listesi</h3>
+    <div class="card-body">
+        <h5><b>Aranılan Şehir: </b><i>Berlin</i>.</h5>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Otel Adı</th>
+                    <th>Otel Puanı</th>
+                    <th>Otel Değerlendirmesi</th>
+                    <th>Detaylar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    hotelCount++;
+                    <tr>
+                        <th>@hotelCount</th>
+                        <td>@item.hotel_name</td>
+                        <td>@{ score = item.review_score / 10; } @score</td>
+                        <td>@item.review_score_word</td>
+                        <td>
+                            <a href="#" class="btn btn-outline-secondary">Detaylar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

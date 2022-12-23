@@ -1,0 +1,54 @@
+﻿@model GuideAddViewModel
+@{
+    ViewData["Title"] = "EditGuide";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+    string url = "No Image Found!";
+    if (Model.ImageURL != null)
+    {
+        url = "/userImages/" + Model.ImageURL;
+    }
+}
+
+<div class="card">
+    <h3 class="card-header">Rehber Düzenleme Sayfası</h3>
+    <div class="card-body">
+        <form method="post" enctype="multipart/form-data">
+            @Html.HiddenFor(x => x.ID)
+            @Html.HiddenFor(x => x.Stat)
+            @Html.HiddenFor(x => x.ImageURL)
+            @Html.Label("Rehberin adı/soyadı")
+            <br /><span asp-validation-for="Name" class="text-danger"></span>
+            <input type="text" placeholder="Ad Soyad.." asp-for="Name" class="form-control" />
+            <br />
+            @Html.Label("Rehberin Açıklaması")
+            <br /><span asp-validation-for="Description" class="text-danger"></span>
+            <textarea asp-for="Description" placeholder="Açıklama kısmı.." class="form-control"></textarea>
+            <br />
+            <div class="row align-center justify-content-center">
+                @Html.Label("Rehberin Kullanıcı Resmi")
+                <br />
+                @if (Model.ImageURL != null)
+                {
+                    <div class="col-1 col-md-1 align-center justify-content-center">
+                        <img width="50" height="50" src="@url" class="rounded" />
+                    </div>
+                }
+                <br /> &nbsp;
+                <div class="col-10 col-sm mt-1">
+                    <input type="file" asp-for="Image" class="form-control" />
+                </div>
+            </div>
+            <br />
+            @Html.Label("Rehberin Twitter Linki")
+            <input type="text" asp-for="TwitterUrl" class="form-control" />
+            <br />
+            @Html.Label("Rehberin Instagram Linki")
+            <input type="text" asp-for="InstagramUrl" class="form-control" />
+            <br />
+            <button type="submit" class="btn btn-info">
+                <i class='bx bx-save'></i>
+                Değişiklikleri Kaydet
+            </button>
+        </form>
+    </div>
+</div>

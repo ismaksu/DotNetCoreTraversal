@@ -1,0 +1,17 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <h3 class="card-header">API İşlemleri</h3>
+    <div class="card-body">
+        <div class="btn-group">
+            <a class="btn btn-outline-warning" href="/Admin/API/GetApiMovies/">IMDb Top 100 Film Listesi</a>
+        </div>
+        <div class="btn-group">
+            <a class="btn btn-success" href="/Admin/API/ApiExchange/">Booking Kur Listesi</a>
+            <a class="btn btn-primary" href="/Admin/API/ApiHotels/">Booking Berlin Otel Listesi</a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <h3 class="card-header">ISM Traversal | Raporlama</h3>
+    <div class="card-body">
+        <h4 class="text-primary">Raporlama Türünü Seçiniz</h4>
+        <div class="btn-group">
+            <a href="/Excel/Index/" class="btn btn-outline-success">
+                <i class='bx bx-table'></i>
+                Excel Raporlaması
+            </a>
+            <a href="/PDF/Index/" class="btn btn-outline-danger">
+                <i class='bx bxs-file-pdf'></i>
+                PDF Raporlaması
+            </a>
+        </div>
+    </div>
+</div>

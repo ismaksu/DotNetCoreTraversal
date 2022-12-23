@@ -1,0 +1,61 @@
+﻿@model List<Comment>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <h3 class="card-header">Yorum Listesi</h3>
+    <div class="card-body">
+        <table style="zoom: 90%;" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Yazarı</th>
+                    <th>İçeriği</th>
+                    <th>Tarihi</th>
+                    <th>Blog</th>
+                    <th>Durum</th>
+                    <th>İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    string stat = item.CommentStat ? "Aktif" : "Pasif"; 
+                    <tr>
+                        <th>@item.CommentID</th>
+                        <td style="white-space: nowrap;">@item.CommentAuthor</td>
+                        <td style="white-space: nowrap;">
+                            @if (item.CommentValue != null && item.CommentValue.Length > 30)
+                            {
+                                @item.CommentValue.Substring(0, item.CommentValue.Substring(0, 30).LastIndexOf(" ")) <i>...</i>
+                            }
+                            else
+                            {
+                                @item.CommentValue
+                            }
+                        </td>
+                        <td>@item.CommentDate.ToString("dd MMMM yyyy | [HH:mm]")</td>
+                        <td>@item.Destination.City</td>
+                        <td>@stat</td>
+                        <td style="white-space: nowrap;">
+                            <a href="/Destination/DestinationDetails/@item.DestinationID/" class="btn btn-outline-info">
+                                <i class='bx bx-comment-detail'></i>
+                                Yoruma Git
+                            </a>
+                            <a href="/Admin/Comment/EditComment/@item.CommentID/" class="btn btn-warning">
+                                <i class='bx bx-pencil'></i>
+                                Düzenle
+                            </a>
+                            <a href="/Admin/Comment/DeleteComment/@item.CommentID/" class="btn btn-danger">
+                                <i class='bx bx-x'></i>
+                                Sil
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

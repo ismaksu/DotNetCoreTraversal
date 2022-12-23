@@ -1,0 +1,97 @@
+﻿@model Reservation
+@{
+    ViewData["Title"] = "NewReservation";
+    Layout = "~/Views/Shared/_UserDashboardLayout.cshtml";
+}
+
+
+<div class="card">
+    <h3 class="card-header">Yeni Rezervasyon Sayfası</h3>
+    <div class="card-body">
+        <form method="post">
+            <div class="form-group">
+                @Html.Label("Lokasyon")
+                @Html.DropDownListFor(x => x.DestinationID, (List<SelectListItem>)ViewBag.v, new { @class = "form-control", @id="destination" })
+            </div>
+            <br />
+            <div class="form-group">
+                @Html.Label("Kişi Sayısı")
+                <input type="text" id="personcount" asp-for="PersonCount" class="form-control" />
+            </div>
+            <br />
+            <div class="form-group">
+                @Html.Label("Rezervasyon Zamanı")
+                <input type="date" id="restime" asp-for="ReservationDate" class="form-control" />
+            </div>
+            <br />
+            <div class="form-group">
+                @Html.Label("Varsa Eklemek İstedikleriniz:")
+                @Html.TextAreaFor(x => x.Description, new { @class = "form-control", @id="description" })
+            </div>
+            <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#informationModal">Rezervasyon Yap</button>
+        </form>
+    </div>
+</div>
+
+<!--  Modal Popup  -->
+<div class="modal fade" id="informationModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Dikkat!</h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Şu anda yapacak olduğunuz rezervasyon, ilk önce moderatörlerimiz tarafından bir onay sürecine girecek olup
+                    ondan sonrasında ise müşteri/alıcı ile iletişimi sağlanacaktır.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-outline-secondary" data-dismiss="modal">İptal</a> &nbsp;
+                <button onclick="postValues()" data-toggle="modal" data-target="#successModal" data-dismiss="modal" class="btn btn-primary">Kabul ediyorum</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="successModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Başarılı!</h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Rezervasyon başvurunuz başarı ile iletilmiştir!
+                    2 saniye içerisinde yönlendirileceksiniz.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-success" data-dismiss="modal">Mükemmel!</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function postValues() {
+        let values = {
+            DestinationID: $("#destination").val(),
+            PersonCount: $("#personcount").val(),
+            ReservationDate: $("#restime").val(),
+            Description: $("#description").val()
+        };
+
+        $.ajax({
+            type: "post",
+            url: "/Member/Reservation/NewReservation/",
+            data: values,
+            success: function (result) {
+                setTimeout(function () {
+                    window.location = "/Member/Reservation/ApprovalReservations/";
+                }, 2000)
+            }
+        });
+    }
+</script>

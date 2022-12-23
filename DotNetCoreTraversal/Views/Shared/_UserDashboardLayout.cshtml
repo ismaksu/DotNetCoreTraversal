@@ -1,0 +1,29 @@
+﻿
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html lang="tr">
+
+    @*Header*@
+    @await Html.PartialAsync("~/Views/MemberLayoutPartial/_HeaderPartial.cshtml")
+
+<body class="g-sidenav-show  bg-gray-100">
+    @*Navbar*@
+    @await Html.PartialAsync("~/Views/MemberLayoutPartial/_NavbarPartial.cshtml")
+    <main class="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+        <!-- Navbar -->
+        @await Html.PartialAsync("~/Views/MemberLayoutPartial/_Navbar2Partial.cshtml")
+        <!-- End Navbar -->
+        
+        <div class="container-fluid py-4">
+
+            @RenderBody()
+
+        </div>
+    </main>
+    <!--   Core JS Files   -->
+    @await Html.PartialAsync("~/Views/MemberLayoutPartial/_ScriptsPartial.cshtml")
+</body>
+
+</html>

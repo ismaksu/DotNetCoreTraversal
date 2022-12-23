@@ -1,0 +1,30 @@
+﻿@model AnnouncementAddDTO
+@{
+    ViewData["Title"] = "AddAnnouncement";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <h3 class="card-header">Duyuru Oluşturma Paneli</h3>
+    <div class="card-body">
+        <form method="post">
+            <div class="form-group">
+                @Html.Label("Duyuru Başlığı")
+                <input class="form-control" type="text" maxlength="65" placeholder="Duyuru Başlığı.." asp-for="Title" />
+                <span class="text-danger" asp-validation-for="Title"></span>
+            </div>
+            <br />
+            <div class="form-group">
+                @Html.Label("Duyuru İçeriği")
+                <textarea class="form-control" type="text" maxlength="850" placeholder="Duyuru İçeriği.." asp-for="Content"></textarea>
+                <span class="text-danger" asp-validation-for="Content"></span>
+            </div>
+            <br />
+            <button type="submit" class="btn btn-success" href="/Admin/Announcement/AddAnnouncement/">
+                <i class='bx bxs-bell-plus'></i> &nbsp;
+                Duyuru Oluştur
+            </button>
+        </form>
+        
+    </div>
+</div>

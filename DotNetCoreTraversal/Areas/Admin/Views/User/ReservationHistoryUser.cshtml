@@ -1,0 +1,44 @@
+﻿@model List<Reservation>
+@{
+    ViewData["Title"] = "ReservationHistoryUser";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <h3 class="card-header">Kullanıcı Rezervasyon Geçmişi</h3>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Kullanıcı Adı</th>
+                    <th>Rota</th>
+                    <th>Kişi Sayısı</th>
+                    <th>Tarih</th>
+                    <th>Notlar</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th>@item.DestinationID</th>
+                        <td>@item.AppUser.Name @item.AppUser.Surname</td>
+                        <td>@item.Destination.City</td>
+                        <td>@item.PersonCount</td>
+                        <td>@item.ReservationDate.ToString("dd MMMM yyyy | [HH:mm]")</td>
+                        <td>
+                            @if (item.Description != null && item.Description.Length > 30)
+                            {
+                                @item.Description.Substring(0, item.Description.Substring(0, 30).LastIndexOf(" "))<i>...</i>
+                            } else
+                            {
+                                @item.Description
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,47 @@
+﻿@model List<Reservation>
+@{
+    ViewData["Title"] = "CurrentReservations";
+    Layout = "~/Views/Shared/_UserDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <h3 class="card-header">Aktif Rezervasyonlarım</h3>
+    <div class="card-body">
+        @if (!Model.Any())
+        {
+            <h4>Şu anda onaylanmış bir rezervasyonunuz bulunmuyor!</h4>
+        } else
+        {
+            <table class="table table-hover">
+                <tr>
+                    <th>#</th>
+                    <th>Lokasyon</th>
+                    <th>Kişi Sayısı</th>
+                    <th>Rezervasyon Tarihi</th>
+                    <th>Notlarınız</th>
+                    <th>Durum</th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <th>@item.ReservationID</th>
+                        <td>@item.Destination.City</td>
+                        <td>@item.PersonCount</td>
+                        <td>@item.ReservationDate.ToString("dd MMMM yyyy dddd")</td>
+                        <td>
+                            @if (item.Description != null && item.Description.Length > 40)
+                            {
+                                @item.Description.Substring(0, item.Description.Substring(0, 40).LastIndexOf(" "))<i>...</i>
+                            }
+                            else
+                            {
+                                @item.Description
+                            }
+                        </td>
+                        <td>@item.ReservationStat</td>
+                    </tr>
+                }
+            </table>
+        }
+    </div>
+</div>

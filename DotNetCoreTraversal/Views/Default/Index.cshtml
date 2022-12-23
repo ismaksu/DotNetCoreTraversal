@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+@await Component.InvokeAsync("SliderPartial")
+@await Component.InvokeAsync("PopularDestinations")
+@await Component.InvokeAsync("Statistics")
+@await Component.InvokeAsync("Featured")
+@await Component.InvokeAsync("Subabout")
+@await Component.InvokeAsync("Testimonials")

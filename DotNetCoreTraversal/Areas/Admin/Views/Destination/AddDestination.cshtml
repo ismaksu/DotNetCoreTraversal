@@ -1,0 +1,71 @@
+﻿@model Destination
+@{
+    ViewData["Title"] = "AddDestination";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+<div class="row d-flex justify-content-center">
+    <div class="card col-md-8">
+        <h3 class="card-header">Tur Rotası Ekleme Alanı</h3>
+        <div class="card-body">
+            <form method="post">
+                <div class="form-group">
+                    @Html.Label("Şehir")
+                    <input placeholder="Paris" type="text" asp-for="City" class="form-control" autocomplete="off" />
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Gün/Gece")
+                    <input placeholder="3 Gün, 2 Gece" type="text" asp-for="DayNight" class="form-control" />
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Fiyat")
+                    <div class="input-group input-group-merge">
+                        <span class="input-group-text">$</span>
+                        <input type="number" class="form-control" asp-for="Price" placeholder="1500" />
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Kişi Kapasitesi")
+                    <div class="input-group input-group-merge">
+                        <input style="text-align: right;" type="number" class="form-control" asp-for="Capacity" placeholder="50" />
+                        <span class="input-group-text">Kişi</span>
+                    </div>
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Açıklaması")
+                    <textarea placeholder="Avrupanın göz bebeği şehirlerinden birisi." class="form-control" asp-for="Description"></textarea>
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Kapak Görseli URL")
+                    <input type="text" asp-for="CoverImage" class="form-control"/>
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Görsel URL")
+                    <input type="text" asp-for="Image" class="form-control" />
+                </div>
+                <br />
+                <div class="form-group">
+                    <label>2.Görsel URL</label>
+                    <input type="text" asp-for="Image1" class="form-control" />
+                </div>
+                <br />
+                <div class="form-group">
+                    @Html.Label("Detaylar")
+                    <textarea placeholder="Bu şehirdeki insanlar kesinlikle sizi sıcak karşılayacaktır." class="form-control" asp-for="Details1"></textarea>
+                </div>
+                <br />
+                <div class="form-group">
+                    <label>2.Detaylar</label>
+                    <textarea placeholder="Her şeyin yanısıra, hayat bu şehirde biraz pahalı." class="form-control" asp-for="Details2"></textarea>
+                </div>
+                <br />
+                <button type="submit" class="btn btn-primary">Rota Oluştur</button>
+            </form>
+        </div>
+    </div>
+</div>

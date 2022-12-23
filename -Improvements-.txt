@@ -1,0 +1,2 @@
+Comment kısmının Identity'e bağlanması.
+DestinationDetails Revizeleri.

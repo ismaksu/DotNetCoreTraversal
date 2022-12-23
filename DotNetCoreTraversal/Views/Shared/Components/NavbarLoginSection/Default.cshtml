@@ -1,0 +1,18 @@
+﻿<div class="d-none d-lg-flex">
+    @if (ViewBag.username == null)
+    {
+        <div class="btn-group">
+            <a class="btn btn-outline-primary" href="/Login/Index/">Giriş Yap</a>
+            <a class="btn btn-outline-secondary" href="/Login/Register/">Kayıt Ol</a>
+        </div>
+    }
+    else
+    {
+        <div class="mr-2" style="zoom: 85%;">
+            <a href="/Member/Dashboard/Index/" class="btn btn-outline-secondary rounded-pill px-3 py-1" >
+                <img class="rounded-circle" width="50" height="50" src="@ViewBag.Url" /> &nbsp;
+                <span>@ViewBag.NameSurname</span>
+            </a>
+        </div>
+    }
+</div>

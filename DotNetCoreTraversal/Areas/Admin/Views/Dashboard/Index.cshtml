@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<div class="row">
+    @await Component.InvokeAsync("DashboardBanner")
+    @await Component.InvokeAsync("DashboardMiniCards")
+    <!-- Total Revenue -->
+    @await Component.InvokeAsync("DashboardGraph")
+    <!--/ Total Revenue -->
+    <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
+        <div class="row">
+            @await Component.InvokeAsync("DashboardMiniCards1")
+            @await Component.InvokeAsync("DashboardCard")
+        </div>
+    </div>
+</div>
+<div class="row">
+    <!-- Order Statistics -->
+    @await Component.InvokeAsync("DashboardDestinationStat")
+    <!--/ Order Statistics -->
+    <!-- Expense Overview -->
+    @await Component.InvokeAsync("DashboardGraph1")
+    <!--/ Expense Overview -->
+    <!-- Transactions -->
+    @await Component.InvokeAsync("DashboardGuideList")
+    <!--/ Transactions -->
+</div>
