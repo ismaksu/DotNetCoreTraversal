@@ -63,6 +63,7 @@ namespace DotNetCoreTraversal.Controllers
         {
             AppUser appUser = new AppUser()
             {
+                ImageUrl = "default.png",
                 Name = p.Name,
                 Surname = p.Surname,
                 UserName = p.Username,
