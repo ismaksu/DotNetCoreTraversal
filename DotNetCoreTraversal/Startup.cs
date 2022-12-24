@@ -1,5 +1,6 @@
 using BusinessLayer.Container;
 using DataAccessLayer.Concrete;
+using DotNetCoreTraversal.CQRS.Handlers.DestinatonHandlers;
 using DotNetCoreTraversal.Models;
 using EntityLayer.Concrete;
 using FluentValidation.AspNetCore;
@@ -28,6 +29,7 @@ namespace DotNetCoreTraversal
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<GetAllDestinationQueryHandler>();
             //Logging
             services.AddLogging(x =>
             {
