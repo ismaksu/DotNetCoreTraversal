@@ -61,30 +61,35 @@ namespace DotNetCoreTraversal.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(UserRegisterViewModel p)
         {
-            AppUser appUser = new AppUser()
+            if (ModelState.IsValid)
             {
-                ImageUrl = "default.png",
-                Name = p.Name,
-                Surname = p.Surname,
-                UserName = p.Username,
-                Email = p.Mail
-            };
-            if (p.Password == p.ConfirmPassword)
-            {
-                var result = await _userManager.CreateAsync(appUser, p.Password);
+                AppUser appUser = new AppUser()
+                {
+                    ImageUrl = "default.png",
+                    PhoneNumber = p.PhoneNumber,
+                    Name = p.Name,
+                    Surname = p.Surname,
+                    UserName = p.Username,
+                    Email = p.Mail
+                };
+                if (p.Password == p.ConfirmPassword)
+                {
+                    var result = await _userManager.CreateAsync(appUser, p.Password);
 
-                if (result.Succeeded)
-                {
-                    return RedirectToAction("Index");
-                }
-                else
-                {
-                    foreach (var item in result.Errors)
+                    if (result.Succeeded)
                     {
-                        ModelState.AddModelError("", item.Description);
+                        return RedirectToAction("Index");
+                    }
+                    else
+                    {
+                        foreach (var item in result.Errors)
+                        {
+                            ModelState.AddModelError("", item.Description);
+                        }
                     }
                 }
             }
+            
             return View(p);
         }
 

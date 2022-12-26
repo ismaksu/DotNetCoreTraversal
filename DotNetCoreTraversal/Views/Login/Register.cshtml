@@ -71,7 +71,7 @@
 
                 <div class="form-holder">
                     <span class="lnr lnr-phone-handset"></span>
-                    <input type="text" class="form-control" placeholder="Telefon Numarası">
+                    <input type="text" asp-for="PhoneNumber" class="form-control" placeholder="Telefon Numarası">
                 </div>
 
                 <span style="color:red" asp-validation-for="Mail"></span>
@@ -85,16 +85,14 @@
                     <span class="lnr lnr-lock"></span>
                     <input type="password" class="form-control" asp-for="Password" placeholder="Şifre">
                 </div>
-                <div style="color: red;" asp-validation-summary="ModelOnly">
-
-                </div>
-
                 <span style="color:red" asp-validation-for="ConfirmPassword"></span>
                 <div class="form-holder">
                     <span class="lnr lnr-lock"></span>
                     <input type="password" class="form-control" asp-for="ConfirmPassword" placeholder="Şifre Doğrulama">
                 </div>
+                <div style="color: red;" asp-validation-summary="ModelOnly">
 
+                </div>
                 <button>
                     <span>Kayıt ol</span>
                 </button>

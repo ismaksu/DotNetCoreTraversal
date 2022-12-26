@@ -16,6 +16,8 @@ namespace DotNetCoreTraversal.Models
 		[Required(ErrorMessage = "Lütfen mail adresinizi giriniz.")]
 		public string Mail { get; set; }
 
+		public string PhoneNumber { get; set; }
+
 		[Required(ErrorMessage = "Lütfen şifrenizi giriniz.")]
 		public string Password { get; set; }
 
