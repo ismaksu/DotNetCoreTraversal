@@ -49,6 +49,11 @@ namespace BusinessLayer.Concrete
             return _reservationDal.GetPreviousReservation(id);
         }
 
+        public Reservation GetReservationByID(int id)
+        {
+            return _reservationDal.GetReservationByID(id);
+        }
+
         public List<Reservation> ListEntities()
         {
             return _reservationDal.GetList();

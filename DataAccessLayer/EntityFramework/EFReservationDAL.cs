@@ -39,5 +39,13 @@ namespace DataAccessLayer.EntityFramework
                     .Where(x => x.ReservationStat == "Geçmiş Rezervasyon" && x.AppUserId == id).ToList();
             }
         }
+
+        public Reservation GetReservationByID(int id)
+        {
+            using (var c = new Context())
+            {
+                return c.Reservations.Include(x => x.Destination).Include(x => x.AppUser).Where(x => x.ReservationID == id).FirstOrDefault();
+            }
+        }
     }
 }
