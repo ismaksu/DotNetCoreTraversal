@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace DotNetCoreTraversal.Areas.Member.Controllers
 {
     [Area("Member")]
-    [Route("Member/[controller]/[action]")]
+    [Route("Member/[controller]/[action]/{id?}")]
     public class ReservationController : Controller
     {
         DestinationManager dm = new DestinationManager(new EFDestinationDAL());
@@ -23,6 +23,12 @@ namespace DotNetCoreTraversal.Areas.Member.Controllers
         public ReservationController(UserManager<AppUser> userManager)
         {
             _userManager = userManager;
+        }
+
+        public IActionResult ReservationDetails (int id)
+        {
+            var values = rm.GetReservationByID(id);
+            return View(values);
         }
 
         public async Task<IActionResult> CurrentReservations()

@@ -20,6 +20,7 @@
                     <th>Rezervasyon Tarihi</th>
                     <th>Notlarınız</th>
                     <th>Durum</th>
+                    <th>İşlemler</th>
                 </tr>
                 @foreach (var item in Model)
                 {
@@ -39,6 +40,9 @@
                             }
                         </td>
                         <td>@item.ReservationStat</td>
+                        <td>
+                            <a href="/Member/Reservation/ReservationDetails/@item.ReservationID" class="btn btn-primary">Detaylar</a>
+                        </td>
                     </tr>
                 }
             </table>
