@@ -32,7 +32,7 @@ namespace DotNetCoreTraversal.Controllers
             p.CommentDate = DateTime.Now;
             p.CommentStat = true;
             p.AppUserId = user.Id;
-            p.CommentAuthor = user.Name + " " + user.Surname;
+            p.CommentAuthor = user.UserName;
 
             _cms.AddEntity(p);
             return ViewComponent("CommentList", new { id = p.DestinationID });
