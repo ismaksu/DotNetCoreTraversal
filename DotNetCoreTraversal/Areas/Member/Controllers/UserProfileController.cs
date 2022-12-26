@@ -68,22 +68,35 @@ namespace DotNetCoreTraversal.Areas.Member.Controllers
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
 
-            bool passValidation = p.ConfirmPassword == p.NewPassword ? true : false;
-
-            if (passValidation)
+            if (ModelState.IsValid)
             {
-                var result = await _userManager.ChangePasswordAsync(user, p.CurrentPassword, p.NewPassword);
-                if (result.Succeeded)
+                bool passValidation = p.ConfirmPassword == p.NewPassword ? true : false;
+
+                if (passValidation)
                 {
-                    return Json(new { redirectToUrl = Url.Action("Index", "Login") });
+                    var result = await _userManager.ChangePasswordAsync(user, p.CurrentPassword, p.NewPassword);
+                    if (result.Succeeded)
+                    {
+                        return Json(new { redirectToUrl = Url.Action("Index", "Login") });
+                    }
+                    else
+                    {
+                        foreach (var errors in result.Errors)
+                        {
+                            ModelState.AddModelError(errors.Code, errors.Description);
+                        }
+                        return BadRequest(ModelState);
+                    }
+                }
+                else
+                {
+                    return BadRequest("Şifreler eşleşmiyor!");
                 }
             }
             else
             {
-                Response.StatusCode = 400;
-                return Content("Şifreler eşleşmiyor!");
+                return BadRequest("Bir hata var!\nŞifreleri kontrol ediniz..");
             }
-            return View();
         }
     }
 }

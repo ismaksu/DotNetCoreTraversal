@@ -53,6 +53,8 @@
                 @Html.Label("Yeni Şifrenizi Doğrulayın")
                 <input type="password" required class="form-control" id="newPassAgain" />
                 <br />
+                <div class="text-danger" id="errors">
+                </div>
             </div>
             <div class="modal-footer">
                 <a href="#" class="btn btn-outline-secondary" data-dismiss="modal">İptal</a>
@@ -76,10 +78,12 @@
                 console.log('İşlem başarılı.');
                 window.location.href = func.redirectToUrl;
             },
-            error: function (response, stat, errorMessage) {
-                if (response.status == 400) {
-                    alert(response.responseText);
+            error: function (x, y, z) {
+                let errorMessage = "Bir hata oluştu!\nLütfen şifreleri kontrol ediniz!";
+                if (x.responseText != null) {
+                    errorMessage = x.responseText;
                 }
+                $("#errors").html(errorMessage);
             }
         });
     }
