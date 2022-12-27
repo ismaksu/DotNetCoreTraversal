@@ -7,11 +7,11 @@ namespace DotNetCoreTraversal.CQRS.Queries.DestinationQueries
 {
     public class GetDestinationByIDQuery
     {
-        public int ID { get; set; }
-
-        public GetDestinationByIDQuery(int Id)
+        public GetDestinationByIDQuery(int id)
         {
-            ID = Id;
+            this.id = id;
         }
+
+        public int id { get; set; }
     }
 }

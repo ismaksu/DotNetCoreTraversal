@@ -7,10 +7,12 @@ namespace DotNetCoreTraversal.CQRS.Results.DestinationResults
 {
     public class GetDestinationByIDQueryResult
     {
-        public int ID { get; set; }
+        public int DestinationID { get; set; }
 
         public string City { get; set; }
 
         public string DayNight { get; set; }
+
+        public double Price { get; set; }
     }
 }
