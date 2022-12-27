@@ -30,6 +30,10 @@ namespace DotNetCoreTraversal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddScoped<GetAllDestinationQueryHandler>();
+            services.AddScoped<GetDestinationByIDQueryHandler>();
+            services.AddScoped<CreateDestinationCommandHandler>();
+            services.AddScoped<RemoveDestinationCommandHandler>();
+            services.AddScoped<UpdateDestinationCommandHandler>();
             //Logging
             services.AddLogging(x =>
             {
@@ -96,7 +100,7 @@ namespace DotNetCoreTraversal
             {
                 endpoints.MapControllerRoute(
                   name: "areas",
-                  pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
+                  pattern: "{area:exists}/{controller=Dashboard}/{action=Index}/{id?}"
                 );
             });
         }

@@ -19,12 +19,13 @@ namespace DotNetCoreTraversal.CQRS.Handlers.DestinatonHandlers
 
         public GetDestinationByIDQueryResult Handle(GetDestinationByIDQuery query)
         {
-            var values = _context.Destinations.Find(query.ID);
+            var values = _context.Destinations.Find(query.id);
             return new GetDestinationByIDQueryResult
             {
-                ID = values.DestinationID,
+                DestinationID = values.DestinationID,
                 City = values.City,
-                DayNight = values.DayNight
+                DayNight = values.DayNight,
+                Price = values.Price
             };
         }
     }

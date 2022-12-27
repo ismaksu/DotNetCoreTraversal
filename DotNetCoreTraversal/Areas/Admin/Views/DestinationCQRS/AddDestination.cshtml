@@ -1,19 +1,26 @@
-﻿@model GetDestinationByIDQueryResult
+﻿@model CreateDestinationCommand
 @{
-    ViewData["Title"] = "GetDestination";
+    ViewData["Title"] = "AddDestination";
     Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
 }
 
 <div class="card">
-    <h3 class="card-header">Rota Düzenleme Alanı</h3>
+    <h3 class="card-header">Rota Ekleme Alanı</h3>
     <div class="card-body">
         <form method="post">
-            @Html.HiddenFor(x => x.DestinationID)
             <label>Şehir:</label>
             <input placeholder="Şehir.." type="text" class="form-control" asp-for="City" />
             <br />
             <label>Gün/Gece:</label>
             <input placeholder="Gün/Gece.." type="text" class="form-control" asp-for="DayNight" />
+            <br />
+            <div class="form-group">
+                @Html.Label("Kişi Kapasitesi")
+                <div class="input-group input-group-merge">
+                    <input style="text-align: right;" type="number" class="form-control" asp-for="Capacity" placeholder="50" />
+                    <span class="input-group-text">Kişi</span>
+                </div>
+            </div>
             <br />
             <label>Fiyat:</label>
             <div class="input-group input-group-merge col-6">
@@ -21,7 +28,7 @@
                 <input placeholder="Fiyatı.." type="number" class="form-control" asp-for="Price" />
             </div>
             <br />
-            <button type="submit" class="btn btn-outline-success">Bilgileri Güncelle</button>
+            <button type="submit" href="/Admin/DestinationCQRS/AddDestination" class="btn btn-outline-primary">Rota Ekle</button>
         </form>
     </div>
 </div>
