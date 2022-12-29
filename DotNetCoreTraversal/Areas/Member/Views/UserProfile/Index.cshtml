@@ -79,11 +79,15 @@
                 window.location.href = func.redirectToUrl;
             },
             error: function (x, y, z) {
-                let errorMessage = "Bir hata oluştu!\nLütfen şifreleri kontrol ediniz!";
-                if (x.responseText != null) {
-                    errorMessage = x.responseText;
+                let errorHtml = "";
+                if (x.responseJSON && x.responseJSON.errors) {
+                    var errors = x.responseJSON.errors;
+                    for (var i = 0; i < errors.length; i++) {
+                        console.log(errors[i].errorMessage)
+                        errorHtml += `<p>${errors[i].errorMessage}</p>`;
+                    }
                 }
-                $("#errors").html(errorMessage);
+                $("#errors").html(errorHtml);
             }
         });
     }

@@ -85,17 +85,17 @@ namespace DotNetCoreTraversal.Areas.Member.Controllers
                         {
                             ModelState.AddModelError(errors.Code, errors.Description);
                         }
-                        return BadRequest(ModelState);
+                        return BadRequest(new { errors = ModelState.Values.SelectMany(v => v.Errors) });
                     }
                 }
                 else
                 {
-                    return BadRequest("Şifreler eşleşmiyor!");
+                    return BadRequest(new { errors = ModelState.Values.SelectMany(v => v.Errors) });
                 }
             }
             else
             {
-                return BadRequest("Bir hata var!\nŞifreleri kontrol ediniz..");
+                return BadRequest(new { errors = ModelState.Values.SelectMany(v => v.Errors) });
             }
         }
     }
