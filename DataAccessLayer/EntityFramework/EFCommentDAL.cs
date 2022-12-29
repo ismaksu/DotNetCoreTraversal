@@ -17,7 +17,22 @@ namespace DataAccessLayer.EntityFramework
         {
             using (var c = new Context())
             {
-                return c.Comments.Include(x => x.AppUser).Where(x => x.DestinationID == id).ToList();
+                return c.Comments
+                    .Include(x => x.AppUser)
+                    .Where(x => x.DestinationID == id)
+                    .ToList();
+            }
+        }
+
+        public List<Comment> ListCommentByUser(int id)
+        {
+            using (var c = new Context())
+            {
+                return c.Comments
+                    .Include(x => x.AppUser)
+                    .Include(x => x.Destination)
+                    .Where(x => x.AppUserId == id)
+                    .ToList();
             }
         }
 
@@ -25,7 +40,9 @@ namespace DataAccessLayer.EntityFramework
         {
             using (var c = new Context())
             {
-                return c.Comments.Include(x => x.Destination).ToList();
+                return c.Comments
+                    .Include(x => x.Destination)
+                    .ToList();
             }
         }
     }

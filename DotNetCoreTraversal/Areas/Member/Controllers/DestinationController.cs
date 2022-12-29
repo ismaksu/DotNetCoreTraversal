@@ -6,7 +6,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace DotNetCoreTraversal.Areas.Member.Controllers
 {
     [Area("Member")]
-    [AllowAnonymous]
     public class DestinationController : Controller
     {
         DestinationManager dm = new DestinationManager(new EFDestinationDAL());

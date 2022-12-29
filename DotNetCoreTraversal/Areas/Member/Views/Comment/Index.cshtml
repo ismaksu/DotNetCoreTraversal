@@ -1,8 +1,51 @@
-﻿
+﻿@model List<Comment>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_UserDashboardLayout.cshtml";
+    int counter = 0;
 }
 
-<h1>Index</h1>
-
+<div class="card">
+    <h3 class="card-header">Yapılan Yorumlar</h3>
+    <div class="card-body">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th class="text-center">#</th>
+                    <th class="text-center">Yorum Yapılan Blog</th>
+                    <th class="text-center">Yorum İçeriği</th>
+                    <th class="text-center">Yorum Tarihi</th>
+                    <th class="text-center">İşlemler</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    counter++;
+                    <tr>
+                        <th class="text-center">@counter</th>
+                        <td class="text-center">
+                            @item.Destination.City
+                        </td>
+                        <td class="text-center">
+                            @if (item.CommentValue.Length >= 45)
+                            {
+                                @item.CommentValue.Substring(0, item.CommentValue.Substring(0, 45).LastIndexOf(" "))<b>...</b>
+                            }
+                            else
+                            {
+                                @item.CommentValue
+                            }
+                        </td>
+                        <td class="text-center">
+                            @item.CommentDate.ToString("dd.MM.yyyy [HH:mm]")
+                        </td>
+                        <td class="text-center">
+                            <a href="/Destination/DestinationDetails/@item.DestinationID#commentList" class="btn btn-primary">Bloğa Git</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

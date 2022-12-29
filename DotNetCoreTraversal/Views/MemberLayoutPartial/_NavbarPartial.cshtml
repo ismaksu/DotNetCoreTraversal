@@ -39,6 +39,14 @@
                 </a>
             </li>
             <li class="nav-item">
+                <a class="nav-link @(path == "Comment/Index" ? "active" : "")" href="/Member/Comment/Index/">
+                    <div class="icon icon-md shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="fa fa-comment-o"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Yorumlarım</span>
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link @(path == "Reservation/CurrentReservations" ? "active" : "")" href="/Member/Reservation/CurrentReservations/">
                     <div class="icon icon-md shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i class="fa fa-map"></i>

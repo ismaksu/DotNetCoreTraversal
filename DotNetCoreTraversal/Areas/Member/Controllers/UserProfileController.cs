@@ -16,12 +16,10 @@ namespace DotNetCoreTraversal.Areas.Member.Controllers
     public class UserProfileController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
-        private readonly SignInManager<AppUser> _signInManager;
 
-        public UserProfileController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+        public UserProfileController(UserManager<AppUser> userManager)
         {
             _userManager = userManager;
-            _signInManager = signInManager;
         }
 
         [HttpGet]
