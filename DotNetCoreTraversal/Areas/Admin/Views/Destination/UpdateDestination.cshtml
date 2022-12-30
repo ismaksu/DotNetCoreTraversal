@@ -1,4 +1,4 @@
-﻿@model Destination
+﻿@model DestinationViewModel
 @{
     ViewData["Title"] = "UpdateDestination";
     Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
@@ -7,9 +7,12 @@
     <div class="card col-md-8">
         <h3 class="card-header">Tur Rotası Düzenleme Alanı</h3>
         <div class="card-body">
-            <form method="post">
+            <form method="post" enctype="multipart/form-data">
                 @Html.HiddenFor(x => x.DestinationID)
                 @Html.HiddenFor(x => x.Status)
+                @Html.HiddenFor(x => x.ImageURL)
+                @Html.HiddenFor(x => x.Image1URL)
+                @Html.HiddenFor(x => x.CoverImageURL)
                 <div class="form-group">
                     @Html.Label("Şehir")
                     <input placeholder="Paris" type="text" asp-for="City" class="form-control" autocomplete="off" />
@@ -43,17 +46,17 @@
                 <br />
                 <div class="form-group">
                     @Html.Label("Kapak Görseli URL")
-                    <input type="text" asp-for="CoverImage" class="form-control" />
+                    <input type="file" asp-for="CoverImage" class="form-control" />
                 </div>
                 <br />
                 <div class="form-group">
                     @Html.Label("Görsel URL")
-                    <input type="text" asp-for="Image" class="form-control" />
+                    <input type="file" asp-for="Image" class="form-control" />
                 </div>
                 <br />
                 <div class="form-group">
                     <label>2.Görsel URL</label>
-                    <input type="text" asp-for="Image1" class="form-control" />
+                    <input type="file" asp-for="Image1" class="form-control" />
                 </div>
                 <br />
                 <div class="form-group">

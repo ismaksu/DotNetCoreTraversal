@@ -39,6 +39,7 @@
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Member\Data\" />
     <Folder Include="Views\Comment\" />
+    <Folder Include="wwwroot\cityImages\" />
     <Folder Include="wwwroot\PDFReports\" />
     <Folder Include="wwwroot\WebLogs\" />
     <Folder Include="wwwroot\userImages\" />

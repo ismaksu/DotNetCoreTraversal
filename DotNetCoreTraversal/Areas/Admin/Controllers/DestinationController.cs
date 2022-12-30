@@ -1,8 +1,12 @@
 ﻿using BusinessLayer.Abstract;
 using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
+using DotNetCoreTraversal.Areas.Admin.Models;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace DotNetCoreTraversal.Areas.Admin.Controllers
 {
@@ -30,10 +34,54 @@ namespace DotNetCoreTraversal.Areas.Admin.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddDestination(Destination p)
+        public async Task<IActionResult> AddDestination(DestinationViewModel p)
         {
             p.Status = true;
-            _dsm.AddEntity(p);
+            var resource = Directory.GetCurrentDirectory();
+            if (p.Image != null)
+            {
+                var extension = Path.GetExtension(p.Image.FileName);
+                var imageName = Guid.NewGuid() + extension;
+                var saveLocation = resource + "/wwwroot/cityImages/" + imageName;
+                var stream = new FileStream(saveLocation, FileMode.Create);
+                p.ImageURL = "/cityImages/" + imageName;
+                await p.Image.CopyToAsync(stream);
+            }
+            if (p.Image1 != null)
+            {
+                var extension = Path.GetExtension(p.Image1.FileName);
+                var imageName = Guid.NewGuid() + extension;
+                var saveLocation = resource + "/wwwroot/cityImages/" + imageName;
+                var stream = new FileStream(saveLocation, FileMode.Create);
+                p.Image1URL = "/cityImages/" + imageName;
+                await p.Image1.CopyToAsync(stream);
+            }
+            if (p.CoverImage != null)
+            {
+                var extension = Path.GetExtension(p.CoverImage.FileName);
+                var imageName = Guid.NewGuid() + extension;
+                var saveLocation = resource + "/wwwroot/cityImages/" + imageName;
+                var stream = new FileStream(saveLocation, FileMode.Create);
+                p.CoverImageURL = "/cityImages/" + imageName;
+                await p.CoverImage.CopyToAsync(stream);
+            }
+
+            Destination destination = new Destination()
+            {
+                City = p.City,
+                DayNight = p.DayNight,
+                Price = p.Price,
+                Image = p.ImageURL,
+                Description = p.Description,
+                Capacity = p.Capacity,
+                Status = p.Status,
+                CoverImage = p.CoverImageURL,
+                Details1 = p.Details1,
+                Details2 = p.Details2,
+                Image1 = p.Image1URL
+            };
+
+            _dsm.AddEntity(destination);
             return RedirectToAction("Index");
         }
 
@@ -48,13 +96,73 @@ namespace DotNetCoreTraversal.Areas.Admin.Controllers
         public IActionResult UpdateDestination(int id)
         {
             var destination = _dsm.FindEntityByID(id);
-            return View(destination);
+
+            DestinationViewModel model = new DestinationViewModel();
+            model.DestinationID = destination.DestinationID;
+            model.City = destination.City;
+            model.DayNight = destination.DayNight;
+            model.Price = destination.Price;
+            model.ImageURL = destination.Image;
+            model.Description = destination.Description;
+            model.Capacity = destination.Capacity;
+            model.Status = destination.Status;
+            model.CoverImageURL = destination.CoverImage;
+            model.Details1 = destination.Details1;
+            model.Details2 = destination.Details2;
+            model.Image1URL = destination.Image1;
+
+            return View(model);
         }
 
         [HttpPost]
-        public IActionResult UpdateDestination(Destination p)
+        public async Task<IActionResult> UpdateDestination(DestinationViewModel p)
         {
-            _dsm.UpdateEntity(p);
+            var resource = Directory.GetCurrentDirectory();
+
+            if (p.Image != null)
+            {
+                var extension = Path.GetExtension(p.Image.FileName);
+                var imageName = Guid.NewGuid() + extension;
+                var saveLocation = resource + "/wwwroot/cityImages/" + imageName;
+                var stream = new FileStream(saveLocation, FileMode.Create);
+                p.ImageURL = "/cityImages/" + imageName;
+                await p.Image.CopyToAsync(stream);
+            }
+            if (p.Image1 != null)
+            {
+                var extension = Path.GetExtension(p.Image1.FileName);
+                var imageName = Guid.NewGuid() + extension;
+                var saveLocation = resource + "/wwwroot/cityImages/" + imageName;
+                var stream = new FileStream(saveLocation, FileMode.Create);
+                p.Image1URL = "/cityImages/" + imageName;
+                await p.Image1.CopyToAsync(stream);
+            }
+            if (p.CoverImage != null)
+            {
+                var extension = Path.GetExtension(p.CoverImage.FileName);
+                var imageName = Guid.NewGuid() + extension;
+                var saveLocation = resource + "/wwwroot/cityImages/" + imageName;
+                var stream = new FileStream(saveLocation, FileMode.Create);
+                p.CoverImageURL = "/cityImages/" + imageName;
+                await p.CoverImage.CopyToAsync(stream);
+            }
+
+            Destination destination = new Destination()
+            {
+                DestinationID = p.DestinationID,
+                City = p.City,
+                DayNight = p.DayNight,
+                Price = p.Price,
+                Image = p.ImageURL,
+                Description = p.Description,
+                Capacity = p.Capacity,
+                Status = p.Status,
+                CoverImage = p.CoverImageURL,
+                Details1 = p.Details1,
+                Details2 = p.Details2,
+                Image1 = p.Image1URL
+            };
+            _dsm.UpdateEntity(destination);
             return RedirectToAction("Index");
         }
     }
