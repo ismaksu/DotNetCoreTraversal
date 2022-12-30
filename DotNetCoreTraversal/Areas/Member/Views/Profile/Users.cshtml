@@ -1,0 +1,38 @@
+﻿@model AppUser
+@{
+    ViewData["Title"] = "Users";
+    Layout = "~/Views/Shared/_UserDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <h6 class="card-header text-center">Kullanıcı Profil Sayfası</h6>
+    <div class="card-body">
+        <div class="row align-items-center justify-content-center">
+            @if (Model != null)
+            {
+                <div class="row align-items-center justify-content-center">
+                    <div class="h4 text-center">@Model.Name  @Model.Surname</div>
+                    <small class="text-center">@@@Model.UserName</small>
+                </div>
+                <div class="row align-items-center justify-content-center">
+                    <img src="/userImages/@Model.ImageUrl" class="rounded rounded-circle" style="height: 150px; width: auto;" />
+                </div>
+                <div class="row justify-content-center mt-3">
+                    <div class="col-12 p-3 col-md-5 border border-primary rounded rounded-3 shadow justify-content-center align-items-center text-center">
+                        <p>
+                            <i class="fa fa-phone"></i>: &nbsp; <b>@Model.PhoneNumber</b>
+                            <hr />
+                            <i class="fa fa-envelope-o"></i>: &nbsp; <b>@Model.Email</b>
+                        </p>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <i class="fa fa-times-circle-o fa-4x text-center text-danger"></i>
+                <h2 class="text-center text-danger">Maalesef Aradığınız Kullanıcı Bulunamadı!</h2>
+            }
+
+        </div>
+    </div>
+</div>
