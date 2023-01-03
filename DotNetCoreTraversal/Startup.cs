@@ -4,6 +4,7 @@ using DotNetCoreTraversal.CQRS.Handlers.DestinatonHandlers;
 using DotNetCoreTraversal.Models;
 using EntityLayer.Concrete;
 using FluentValidation.AspNetCore;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +35,9 @@ namespace DotNetCoreTraversal
             services.AddScoped<CreateDestinationCommandHandler>();
             services.AddScoped<RemoveDestinationCommandHandler>();
             services.AddScoped<UpdateDestinationCommandHandler>();
+
+            services.AddMediatR(typeof(Startup));
+
             //Logging
             services.AddLogging(x =>
             {

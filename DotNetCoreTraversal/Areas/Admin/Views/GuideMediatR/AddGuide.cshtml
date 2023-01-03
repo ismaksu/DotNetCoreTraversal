@@ -1,0 +1,34 @@
+﻿@model CreateGuideCommand
+@{
+    ViewData["Title"] = "AddGuide";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <h4 class="card-header">MediatR Rehber Ekleme Sayfası</h4>
+    <div class="card-body">
+        <form method="post">
+            <label>Rehber Adı</label>
+            <input type="text" class="form-control" asp-for="Name" placeholder="Rehberin ismi.." />
+            <br />
+            <label>Rehber Açıklaması</label>
+            <textarea class="form-control" asp-for="Description" placeholder="Rehberin açıklama kısmı.."></textarea>
+            <br />
+            <label>Rehber Görsel URL'si</label>
+            <input type="text" class="form-control" asp-for="Image" placeholder="gorselAdi.png" />
+            <br />
+            <div class="row">
+                <div class="col-6">
+                    <label>Rehber Instagram URL</label>
+                    <input type="text" asp-for="InstagramUrl" class="form-control" placeholder="Instagram Sayfa Linki"/>
+                </div>
+                <div class="col-6">
+                    <label>Rehber Twitter URL</label>
+                    <input type="text" asp-for="TwitterUrl" class="form-control" placeholder="Twitter Sayfa Linki"/>
+                </div>
+            </div>
+            <br />
+            <button type="submit" class="col-4 btn btn-success"><i class="bx bx-plus"></i>&nbsp;Rehber Ekle</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+﻿@model GetAllGuideQueryResult
+@{
+    ViewData["Title"] = "GetGuide";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <h4 class="card-header">MediatR Rehber Düzenleme Sayfası</h4>
+    <div class="card-body">
+        <form method="post">
+            @Html.HiddenFor(x => x.GuideID)
+            <label>Rehber Adı</label>
+            <input type="text" class="form-control" asp-for="Name" placeholder="Rehberin ismi.." />
+            <br />
+            <label>Rehber Açıklaması</label>
+            <textarea class="form-control" asp-for="Description" placeholder="Rehberin açıklama kısmı.."></textarea>
+            <br />
+            <label>Rehber Görsel URL'si</label>
+            <input type="text" class="form-control" asp-for="Image" placeholder="gorselAdi.png" />
+            <br />
+            <button type="submit" class="btn btn-success"><i class="bx bx-save"></i>&nbsp;Değişiklikleri Kaydet</button>
+        </form>
+    </div>
+</div>
