@@ -1,0 +1,27 @@
+﻿@model AccountViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <h4 class="card-header">Unit of Work Transfer</h4>
+    <div class="card-body">
+        <form method="post">
+            <div class="row">
+                <div class="col-6">
+                    <label>Gönderen ID</label>
+                    <input type="number" asp-for="SenderID" class="form-control" placeholder="Gönderenin ID'si.." />
+                </div>
+                <div class="col-6">
+                    <label>Alıcı ID</label>
+                    <input type="number" asp-for="ReceiverID" class="form-control" placeholder="Alıcının ID'si.." />
+                </div>
+            </div>
+            <br />
+            <input type="number" asp-for="Amount" class="form-control" placeholder="Gönderilecek Miktar.." />
+            <br />
+            <button type="submit" class="btn btn-success"><i class="bx bx-transfer-alt"></i>&nbsp;Miktarı Gönder</button>
+        </form>
+    </div>
+</div>
