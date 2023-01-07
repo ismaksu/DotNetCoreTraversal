@@ -12,5 +12,6 @@ namespace BusinessLayer.Abstract
         public List<Comment> ListCommentsByDestination(int id);
         public List<Comment> ListCommentWithDestination();
         public List<Comment> ListCommentByUser(int id);
+        public Comment GetCommentWithDestination(int id);
     }
 }

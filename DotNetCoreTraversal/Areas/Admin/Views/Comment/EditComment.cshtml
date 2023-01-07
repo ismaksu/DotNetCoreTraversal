@@ -1,0 +1,48 @@
+﻿@model Comment
+@{
+    ViewData["Title"] = "EditComment";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <h4 class="card-header">Yorum Düzenleme Alanı</h4>
+    <div class="card-body">
+        <form method="post">
+            <div class="row align-items-center justify-content-center">
+                @Html.HiddenFor(x => x.CommentID)
+                @Html.HiddenFor(x => x.AppUserId)
+                @Html.HiddenFor(x => x.CommentStat)
+                @Html.HiddenFor(x => x.CommentDate)
+                <div class="col-4">
+                    <label>Yorumu Yazan Kişi</label>
+                    <input type="text" disabled value="@Model.CommentAuthor" class="form-control" />
+                </div>
+                <div class="col-4">
+                    <label>Yorum Tarihi</label>
+                    <input type="text" disabled value="@Model.CommentDate" class="form-control" />
+                </div>
+                <div class="col-4 align-items-center justify-content-center">
+                    <div class="d-inline-flex align-items-center justify-content-center">
+                        <img src="@Model.Destination.Image" width="75" class="img-thumbnail rounded"> &nbsp; <a class="ms-1 h4 text-primary" href="/Destination/DestinationDetails/@Model.DestinationID">@Model.Destination.City</a>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row align-items-center justify-content-center">
+                <div class="col-6">
+                    <label>Yorum İçeriği</label>
+                    <textarea rows="10" asp-for="CommentValue" placeholder="Yorum Giriniz.." class="form-control"></textarea>
+                </div>
+                <div class="col-6">
+                    <label>Yorum Yapılan Şehir</label>
+                    @Html.DropDownListFor(x => x.DestinationID, (List<SelectListItem>)ViewBag.sli, new { @class = "form-control" })
+                </div>
+            </div>
+            <br />
+            <button type="submit" class="btn btn-success">
+                <i class="bx bx-save"></i>
+                &nbsp; Yorumu Kaydet
+            </button>
+        </form>
+    </div>
+</div>
