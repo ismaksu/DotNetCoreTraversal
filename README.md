@@ -1,5 +1,5 @@
 <h2>ASP.NET MVC Core 5 - Entity Framework - N-Tier Architecture kullanarak geliştirdiğim bir Traversal Rezervasyon website projesi.</h2>
-<b>Projenin canlıya alınmış halinin link:</b> www.ismtraversal.somee.com
+<b>Projenin canlıya alınmış halinin link:</b> www.ismtraversal.somee.com (Sitedeki deploy edilen sürüm güncel değil.)
 <br><br>
 Projeyi, aşağıdaki oynatma listesindeki ASP.NET Core 5 proje geliştirme kursundan ilerleyerek geliştirdim:
 https://www.youtube.com/playlist?list=PLKnjBHu2xXNMK5MBogdXmsXVi3K_eEZT5
