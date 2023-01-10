@@ -7,7 +7,7 @@ namespace DotNetCoreTraversalAPI.DAL.Context
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=CodersPC\SQLEXPRESS; Initial Catalog=ApiDb_CoreTraversal; Integrated Security=True;");
+            optionsBuilder.UseSqlServer("Connection String");
         }
 
         public DbSet<Visitor> Visitors { get; set; }
