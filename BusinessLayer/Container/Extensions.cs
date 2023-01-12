@@ -48,6 +48,9 @@ namespace BusinessLayer.Container
             services.AddScoped<IAccountService, AccountManager>();
             services.AddScoped<IAccountDAL, EFAccountDAL>();
 
+            services.AddScoped<ICityService, CityManager>();
+            services.AddScoped<ICityDAL, EFCityDAL>();
+
             services.AddScoped<IUowDAL, UowDAL>();
         }
 

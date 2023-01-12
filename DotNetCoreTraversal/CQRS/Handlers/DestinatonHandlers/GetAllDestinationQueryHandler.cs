@@ -24,7 +24,7 @@ namespace DotNetCoreTraversal.CQRS.Handlers.DestinatonHandlers
             {
                 ID = x.DestinationID,
                 Capacity = x.Capacity,
-                City = x.City,
+                City = x.CityName,
                 DayNight = x.DayNight,
                 Price = x.Price
             }).AsNoTracking().ToList();

@@ -60,7 +60,7 @@ namespace DotNetCoreTraversal.Areas.Member.Controllers
             List<SelectListItem> values = (from x in dm.ListEntities()
                                            select new SelectListItem
                                            {
-                                               Text = x.City,
+                                               Text = x.CityName,
                                                Value = x.DestinationID.ToString()
                                            }).ToList();
             ViewBag.v = values;

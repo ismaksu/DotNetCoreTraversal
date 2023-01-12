@@ -36,7 +36,7 @@ namespace DotNetCoreTraversal.Areas.Admin.Controllers
             List<SelectListItem> sliValues = (from x in _ds.ListEntities()
                                            select new SelectListItem
                                            {
-                                               Text = x.City,
+                                               Text = x.CityName,
                                                Value = x.DestinationID.ToString()
                                            }).ToList();
 

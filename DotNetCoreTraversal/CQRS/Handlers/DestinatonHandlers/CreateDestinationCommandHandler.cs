@@ -21,7 +21,7 @@ namespace DotNetCoreTraversal.CQRS.Handlers.DestinatonHandlers
         {
             _context.Destinations.Add(new Destination
             {
-                City = command.City,
+                CityName = command.City,
                 DayNight = command.DayNight,
                 Price = command.Price,
                 Capacity = command.Capacity,

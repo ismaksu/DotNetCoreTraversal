@@ -23,7 +23,7 @@ namespace DotNetCoreTraversal.CQRS.Handlers.DestinatonHandlers
             return new GetDestinationByIDQueryResult
             {
                 DestinationID = values.DestinationID,
-                City = values.City,
+                City = values.CityName,
                 DayNight = values.DayNight,
                 Price = values.Price
             };

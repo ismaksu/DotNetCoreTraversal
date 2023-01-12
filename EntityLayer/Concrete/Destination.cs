@@ -12,7 +12,7 @@ namespace EntityLayer.Concrete
         [Key]
         public int DestinationID { get; set; }
 
-        public string City { get; set; }
+        /* -( Will be getting Destination City from City Table )- */ public string CityName { get; set; }
 
         public string DayNight { get; set; }
 
@@ -34,8 +34,13 @@ namespace EntityLayer.Concrete
 
         public bool Status { get; set; }
 
-        //Relations
+        //-------------- Relations ---------------
+
         public List<Comment> Comments { get; set; }
         public List<Reservation> Reservations { get; set; }
+
+        public int CityID { get; set; }
+        public City City { get; set; }
+
     }
 }

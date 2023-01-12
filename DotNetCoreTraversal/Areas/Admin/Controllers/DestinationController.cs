@@ -68,7 +68,7 @@ namespace DotNetCoreTraversal.Areas.Admin.Controllers
 
             Destination destination = new Destination()
             {
-                City = p.City,
+                CityName = p.City,
                 DayNight = p.DayNight,
                 Price = p.Price,
                 Image = p.ImageURL,
@@ -99,7 +99,7 @@ namespace DotNetCoreTraversal.Areas.Admin.Controllers
 
             DestinationViewModel model = new DestinationViewModel();
             model.DestinationID = destination.DestinationID;
-            model.City = destination.City;
+            model.City = destination.CityName;
             model.DayNight = destination.DayNight;
             model.Price = destination.Price;
             model.ImageURL = destination.Image;
@@ -150,7 +150,7 @@ namespace DotNetCoreTraversal.Areas.Admin.Controllers
             Destination destination = new Destination()
             {
                 DestinationID = p.DestinationID,
-                City = p.City,
+                CityName = p.City,
                 DayNight = p.DayNight,
                 Price = p.Price,
                 Image = p.ImageURL,

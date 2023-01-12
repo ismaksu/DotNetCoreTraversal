@@ -9,6 +9,8 @@ namespace DataAccessLayer.Abstract
 {
     public interface IDestinationDAL:IGenericDAL<Destination>
     {
-
+        public List<Destination> ListDestination();
+        public Destination GetDestinationByID(int id);
+        public List<Destination> GetDestinationByCity(int id);
     }
 }

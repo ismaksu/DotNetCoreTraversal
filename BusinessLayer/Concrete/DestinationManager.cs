@@ -35,6 +35,21 @@ namespace BusinessLayer.Concrete
             return _destinationDal.GetByID(id);
         }
 
+        public List<Destination> GetDestinationByCity(int id)
+        {
+            return _destinationDal.GetDestinationByCity(id);
+        }
+
+        public Destination GetDestinationByID(int id)
+        {
+            return _destinationDal.GetDestinationByID(id);
+        }
+
+        public List<Destination> ListDestination()
+        {
+            return _destinationDal.ListDestination();
+        }
+
         public List<Destination> ListEntities()
         {
             return _destinationDal.GetList();

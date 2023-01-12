@@ -19,7 +19,7 @@ namespace DotNetCoreTraversal.CQRS.Handlers.DestinatonHandlers
         public void Handle(UpdateDestinationCommand command)
         {
             var values = _context.Destinations.Find(command.DestinationID);
-            values.City = command.City;
+            values.CityName = command.City;
             values.DayNight = command.DayNight;
             values.Price = command.Price;
             _context.SaveChanges();

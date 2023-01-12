@@ -31,7 +31,7 @@ namespace DotNetCoreTraversal.Controllers
             {
                 destinationModels = c.Destinations.Select(x => new DestinationModel
                 {
-                    City = x.City,
+                    City = x.CityName,
                     DayNight = x.DayNight,
                     Price = x.Price,
                     Capacity = x.Capacity
