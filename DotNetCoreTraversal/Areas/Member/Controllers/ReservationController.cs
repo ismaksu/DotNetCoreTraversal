@@ -1,4 +1,5 @@
-﻿using BusinessLayer.Concrete;
+﻿using BusinessLayer.Abstract;
+using BusinessLayer.Concrete;
 using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Identity;
@@ -15,14 +16,17 @@ namespace DotNetCoreTraversal.Areas.Member.Controllers
     [Route("Member/[controller]/[action]/{id?}")]
     public class ReservationController : Controller
     {
-        DestinationManager dm = new DestinationManager(new EFDestinationDAL());
         ReservationManager rm = new ReservationManager(new EFReservationDAL());
 
+        private readonly IDestinationService _destinationService;
+        private readonly IReservationService _reservationService;
         private readonly UserManager<AppUser> _userManager;
 
-        public ReservationController(UserManager<AppUser> userManager)
+        public ReservationController(UserManager<AppUser> userManager, IDestinationService destinationService, IReservationService reservationService)
         {
             _userManager = userManager;
+            _destinationService = destinationService;
+            _reservationService = reservationService;
         }
 
         public IActionResult ReservationDetails (int id)
@@ -57,10 +61,10 @@ namespace DotNetCoreTraversal.Areas.Member.Controllers
         [HttpGet]
         public IActionResult NewReservation()
         {
-            List<SelectListItem> values = (from x in dm.ListEntities()
+            List<SelectListItem> values = (from x in _destinationService.ListDestination()
                                            select new SelectListItem
                                            {
-                                               Text = x.CityName,
+                                               Text = x.City.CityName,
                                                Value = x.DestinationID.ToString()
                                            }).ToList();
             ViewBag.v = values;

@@ -137,7 +137,7 @@
                 console.log(w);
                 let tableHtml = "<table class='table table-hover'><tr><th> Şehir Adı </th> <th> Gün/Gece </th> <th> Fiyatı </th> <th> Kişi Kapasitesi </th> <tr>";
                 $.each(w, (index, value) => {
-                    tableHtml += `<tr><td>${value.City}</td><td>${value.DayNight}</td><td>$${value.Price}</td><td>${value.Capacity} Kişi</td></tr>`;
+                    tableHtml += `<tr><td>${value.CityName}</td><td>${value.DayNight}</td><td>$${value.Price}</td><td>${value.Capacity} Kişi</td></tr>`;
                 });
                 tableHtml += "</table>";
                 $("#cityDiv").html(tableHtml);
@@ -151,7 +151,7 @@
 
     function addFunction() {
         let cityValues = {
-            City: $("#txtCity").val(),
+            CityName: $("#txtCity").val(),
             DayNight: $("#txtDayNight").val(),
             Price: $("#txtPrice").val(),
             Image: $("#txtImage").val(),
@@ -194,7 +194,7 @@
                 }
                 else {
                     let tableHtml = "<table class='table table-hover'><tr><th> Şehir Adı </th> <th> Gün/Gece </th> <th> Fiyatı </th> <th> Kişi Kapasitesi </th> <tr>";
-                    tableHtml += `<tr><td>${result.City}</td><td>${result.DayNight}</td><td>$${result.Price}</td><td>${result.Capacity} Kişi</td></tr></table>`;
+                    tableHtml += `<tr><td>${result.CityName}</td><td>${result.DayNight}</td><td>$${result.Price}</td><td>${result.Capacity} Kişi</td></tr></table>`;
                     $("#cityDiv").html(tableHtml);
                 }
             }
@@ -310,7 +310,7 @@
         let cityValues = {
             DestinationID: $("#hiddenID").val(),
             Status: $("#hiddenStatus").val(),
-            City: $("#txtCity").val(),
+            CityName: $("#txtCity").val(),
             DayNight: $("#txtDayNight").val(),
             Price: $("#txtPrice").val(),
             Image: $("#txtImage").val(),

@@ -17,8 +17,11 @@ namespace DataAccessLayer.EntityFramework
         {
             using (var context = new Context())
             {
-                return context.Reservations.Include(x => x.Destination)
-                    .Where(x => x.ReservationStat == "Rezervasyon Onaylandı" && x.AppUserId == id).ToList();
+                return context.Reservations
+                    .Include(x => x.Destination)
+                    .Include(x => x.Destination.City)
+                    .Where(x => x.ReservationStat == "Rezervasyon Onaylandı" && x.AppUserId == id)
+                    .ToList();
             }
         }
 
@@ -26,8 +29,11 @@ namespace DataAccessLayer.EntityFramework
         {
             using(var context = new Context())
             {
-                return context.Reservations.Include(x => x.Destination)
-                    .Where(x => x.ReservationStat == "Rezervasyon Onay Bekliyor.." && x.AppUserId == id).ToList();
+                return context.Reservations
+                    .Include(x => x.Destination)
+                    .Include(x => x.Destination.City)
+                    .Where(x => x.ReservationStat == "Rezervasyon Onay Bekliyor.." && x.AppUserId == id)
+                    .ToList();
             }
         }
 
@@ -35,8 +41,12 @@ namespace DataAccessLayer.EntityFramework
         {
             using (var context = new Context())
             {
-                return context.Reservations.Include(x => x.Destination).Include(y => y.AppUser)
-                    .Where(x => x.ReservationStat == "Geçmiş Rezervasyon" && x.AppUserId == id).ToList();
+                return context.Reservations
+                    .Include(x => x.Destination)
+                    .Include(x => x.Destination.City)
+                    .Include(y => y.AppUser)
+                    .Where(x => x.ReservationStat == "Geçmiş Rezervasyon" && x.AppUserId == id)
+                    .ToList();
             }
         }
 
@@ -44,7 +54,12 @@ namespace DataAccessLayer.EntityFramework
         {
             using (var c = new Context())
             {
-                return c.Reservations.Include(x => x.Destination).Include(x => x.AppUser).Where(x => x.ReservationID == id).FirstOrDefault();
+                return c.Reservations
+                    .Include(x => x.Destination)
+                    .Include(x => x.Destination.City)
+                    .Include(x => x.AppUser)
+                    .Where(x => x.ReservationID == id)
+                    .FirstOrDefault();
             }
         }
     }

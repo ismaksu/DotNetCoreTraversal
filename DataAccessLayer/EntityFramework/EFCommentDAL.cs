@@ -20,6 +20,7 @@ namespace DataAccessLayer.EntityFramework
                 return c.Comments
                     .Include(x => x.AppUser)
                     .Include(x => x.Destination)
+                    .Include(x => x.Destination.City)
                     .Where(x => x.CommentID == id)
                     .FirstOrDefault();
             }
@@ -43,6 +44,7 @@ namespace DataAccessLayer.EntityFramework
                 return c.Comments
                     .Include(x => x.AppUser)
                     .Include(x => x.Destination)
+                    .Include(x => x.Destination.City)
                     .Where(x => x.AppUserId == id)
                     .ToList();
             }
@@ -54,6 +56,7 @@ namespace DataAccessLayer.EntityFramework
             {
                 return c.Comments
                     .Include(x => x.Destination)
+                    .Include(x => x.Destination.City)
                     .ToList();
             }
         }

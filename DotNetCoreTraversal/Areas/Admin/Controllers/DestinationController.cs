@@ -23,7 +23,7 @@ namespace DotNetCoreTraversal.Areas.Admin.Controllers
 
         public IActionResult Index()
         {
-            var values = _dsm.ListEntities();
+            var values = _dsm.ListDestination();
             return View(values);
         }
 
