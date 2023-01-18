@@ -14,10 +14,22 @@ namespace DotNetCoreTraversal.Areas.Admin.Controllers
             _cus = cus;
         }
 
+        public IActionResult ChangeContact(int id)
+        {
+            _cus.ChangeContactState(id);
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Index()
         {
             var values = _cus.ActiveContactList();
             return View(values);
+        }
+
+        public IActionResult ContactDetails(int id)
+        {
+            var value = _cus.FindEntityByID(id);
+            return View(value);
         }
     }
 }

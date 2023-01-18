@@ -24,7 +24,7 @@
                     <td>@item.MessageDate.ToString("dd MMMM yyyy | [HH:mm]")</td>
                     <td>
                         <div class="btn-group">
-                            <a href="#" class="btn btn-primary">
+                            <a href="/Admin/ContactUs/ContactDetails/@item.ContactID" class="btn btn-primary">
                                 <i class='bx bx-show'></i> &nbsp;
                                 Mesajı Oku
                             </a>
@@ -32,7 +32,7 @@
                                 <i class='bx bx-reply'></i> &nbsp;
                                 Mesajı Yanıtla
                             </a>
-                            <a href="#" class="btn btn-outline-danger">
+                            <a href="/Admin/ContactUs/ChangeContact/@item.ContactID" class="btn btn-outline-danger">
                                 <i class='bx bx-message-alt-x'></i> &nbsp;
                                 Mesajı Sil
                             </a>
@@ -43,4 +43,3 @@
         </table>
     </div>
 </div>
-

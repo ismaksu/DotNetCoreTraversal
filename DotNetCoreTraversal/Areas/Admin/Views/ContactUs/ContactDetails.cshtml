@@ -1,0 +1,39 @@
+﻿@model ContactUs
+@{
+    ViewData["Title"] = "ContactDetails";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+<div class="card">
+    <div class="card-header">
+        <h4>@Model.Subject</h4>
+        <br />
+        <div class="btn-group">
+            <a class="btn btn-info" href="/Admin/ContactUs/Index/">
+                <i class="bx bx-arrow-back"></i> &nbsp;
+                Geri Dön
+            </a>
+            <a href="#" class="btn btn-outline-success">
+                <i class='bx bx-reply'></i> &nbsp;
+                Mesajı Yanıtla
+            </a>
+            <a href="/Admin/ContactUs/ChangeContact/@Model.ContactID" class="btn btn-outline-danger">
+                <i class='bx bx-message-alt-x'></i> &nbsp;
+                Mesajı Sil
+            </a>
+        </div>
+    </div>
+    <div class="card-body">
+        <hr />
+        <div class="row">
+            <div class="col-6"><b>Mesajı Yazan: </b>@Model.Name</div>
+            <div class="col-6"><b>Mesajın Başlığı: </b>@Model.Subject</div>
+        </div>
+        <div class="row">
+            <div class="col-6"><b>Mesajın Tarihi: </b>@Model.MessageDate.ToString("dd.MM.yyyy | [HH:mm]")</div>
+            <div class="col-6"><b>Yazanın Mail Adresi: </b>@Model.Mail</div>
+        </div>
+        <hr />
+        <p>@Model.MessageBody</p>
+    </div>
+</div>
