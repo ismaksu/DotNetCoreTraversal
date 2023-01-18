@@ -13,51 +13,50 @@
 >
   @await Html.PartialAsync("~/Views/Admin/PartialHeader.cshtml")
 
-  <body>
+<body>
     <!-- Layout wrapper -->
     <div class="layout-wrapper layout-content-navbar">
-      <div class="layout-container">
-        <!-- Menu -->
+        <div class="layout-container">
+            <!-- Menu -->
 
-        <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
+            <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
 
-          @await Html.PartialAsync("~/Views/Admin/PartialLogo.cshtml")
+                @await Html.PartialAsync("~/Views/Admin/PartialLogo.cshtml")
 
-          <div class="menu-inner-shadow"></div>
+                <div class="menu-inner-shadow"></div>
 
-          @await Html.PartialAsync("~/Views/Admin/PartialSidebar.cshtml")
-        </aside>
-        <!-- / Menu -->
+                @await Html.PartialAsync("~/Views/Admin/PartialSidebar.cshtml")
+            </aside>
+            <!-- / Menu -->
+            <!-- Layout container -->
+            <div class="layout-page">
+                <!-- Navbar -->
 
-        <!-- Layout container -->
-        <div class="layout-page">
-          <!-- Navbar -->
+                @await Html.PartialAsync("~/Views/Admin/PartialNavbar.cshtml")
 
-          @await Html.PartialAsync("~/Views/Admin/PartialNavbar.cshtml")
+                <!-- / Navbar -->
+                <!-- Content wrapper -->
+                <div class="content-wrapper">
+                    <!-- Content -->
 
-          <!-- / Navbar -->
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        @RenderBody()
+                    </div>
+                    <!-- / Content -->
 
-          <!-- Content wrapper -->
-          <div class="content-wrapper">
-            <!-- Content -->
-
-            <div class="container-xxl flex-grow-1 container-p-y">
-              @RenderBody()
+                    <div class="content-backdrop fade"></div>
+                </div>
+                <!-- Content wrapper -->
             </div>
-            <!-- / Content -->
-
-            <div class="content-backdrop fade"></div>
-          </div>
-          <!-- Content wrapper -->
+            <!-- / Layout page -->
         </div>
-        <!-- / Layout page -->
-      </div>
 
-      <!-- Overlay -->
-      <div class="layout-overlay layout-menu-toggle"></div>
+        <!-- Overlay -->
+        <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
 
     @await Html.PartialAsync("~/Views/Admin/PartialScripts.cshtml")
-  </body>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
 </html>
