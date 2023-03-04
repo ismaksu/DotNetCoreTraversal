@@ -14,8 +14,7 @@ namespace DataAccessLayer.Concrete
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=CodersPC\\SQLEXPRESS; Database=Db_CoreTraversal; Integrated Security=True;");
-            //optionsBuilder.UseSqlServer("workstation id=DbCoreTraversal.mssql.somee.com;packet size=4096;user id=ismaksu_SQLLogin_1;pwd=8dzlf5s6eu;data source=DbCoreTraversal.mssql.somee.com;persist security info=False;initial catalog=DbCoreTraversal");
+            optionsBuilder.UseSqlServer("Connection String");
         }
 
         public DbSet<About> Abouts { get; set; }
