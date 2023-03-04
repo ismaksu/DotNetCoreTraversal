@@ -11,7 +11,7 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>ISM Traversal | Blog </title>
+    <title> ISM Traversal | @Model.City.CityName </title>
     <!-- google fonts -->
     <link href="//fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link href="//fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&display=swap"
@@ -116,14 +116,16 @@
 
                     <div class="d-grid left-right mt-5 pb-md-5">
                         <div class="buttons-singles tags">
-                            <h4>Tags :</h4>
-                            <a href="#blog-tag">Travel</a>
-                            <a href="#blog-tag">Culture</a>
-                            <a href="#blog-tag">Hotel</a>
-                            <a href="#blog-tag">Food</a>
+                            <h4>Etiketler :</h4>
+                            <a href="#blog-tag">Seyahat</a>
+                            <a href="#blog-tag">Kültür</a>
+                            <a href="#blog-tag">Otel</a>
+                            <a href="#blog-tag">Yemek</a>
+                            <a href="#blog-tag">Gezi</a>
+                            <a href="#blog-tag">Tur</a>
                         </div>
                         <div class="buttons-singles">
-                            <h4>Share :</h4>
+                            <h4>Paylaş :</h4>
                             <a href="#blog-share"><span class="fa fa-facebook" aria-hidden="true"></span></a>
                             <a href="#blog-share"><span class="fa fa-twitter" aria-hidden="true"></span></a>
                             <a href="#blog-share"><span class="fa fa-google-plus" aria-hidden="true"></span></a>
@@ -132,60 +134,7 @@
                     </div>
 
                     <!--//author-card-->
-                    <div class="author-card mt-5">
-                        <div class="row align-items-center">
-                            <div class="col-sm-3 col-6">
-                                <div>
-                                    <img src="~/userPages/assets/images/c3.jpg" alt="" class="rounded-circle img-fluid">
-                                </div>
-                            </div>
-                            <div class="col-sm-9 mt-sm-0 mt-3">
-                                <h3 class="mb-3 title">Alexander Ronald</h3>
-                                <p>
-                                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident, sed et excepturi.
-                                    Distinctio fugit odit? Fugit ipsam. Lorem ipsum dolor sit.
-                                </p>
-                                <ul class="author-icons mt-4">
-                                    <li>
-                                        <a class="facebook" href="#url">
-                                            <span class="fa fa-facebook"
-                                                  aria-hidden="true"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="twitter" href="#url">
-                                            <span class="fa fa-twitter"
-                                                  aria-hidden="true"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="google" href="#url">
-                                            <span class="fa fa-google-plus"
-                                                  aria-hidden="true"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="linkedin" href="#url">
-                                            <span class="fa fa-linkedin"
-                                                  aria-hidden="true"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="github" href="#url">
-                                            <span class="fa fa-github"
-                                                  aria-hidden="true"></span>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a class="dribbble" href="#url">
-                                            <span class="fa fa-dribbble"
-                                                  aria-hidden="true"></span>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
+                    @await Component.InvokeAsync("_GuideDetails")
                     <!--//author-card-->
                     @*ViewComponents*@
 
@@ -199,7 +148,7 @@
                     {
                         <div class="container">
                             <br />
-                            <h4 class="text-danger border border-success rounded text-center shadow shadow-blur p-3 p-sm-0"> Bu yazıya yorum yapmak için <a href="/Login/Index/?ReturnUrl=/Destination/DestinationDetails/@Model.DestinationID#commentArea" class="btn btn-link btn-lg mb-1">Giriş Yapın.</a> </h4>
+                            <h4 class="text-danger border border-primary rounded text-center shadow shadow-blur p-3 p-sm-0"> Bu yazıya yorum yapmak için <a href="/Login/Index/?ReturnUrl=/Destination/DestinationDetails/@Model.DestinationID#commentArea" class="btn btn-link btn-lg mb-1">Giriş Yapın.</a> </h4>
                         </div>
                     }
                     <div id="commentList">
