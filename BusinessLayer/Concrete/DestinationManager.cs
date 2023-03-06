@@ -22,6 +22,7 @@ namespace BusinessLayer.Concrete
 
         public void AddEntity(Destination t)
         {
+            t.BlogDate = DateTime.Now;
             _destinationDal.Insert(t);
         }
 

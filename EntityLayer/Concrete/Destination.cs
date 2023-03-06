@@ -32,6 +32,8 @@ namespace EntityLayer.Concrete
 
         public int Capacity { get; set; }
 
+        public DateTime BlogDate { get; set; }
+
         public bool Status { get; set; }
 
         //-------------- Relations ---------------
