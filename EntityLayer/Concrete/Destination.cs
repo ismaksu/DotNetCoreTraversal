@@ -42,5 +42,8 @@ namespace EntityLayer.Concrete
         public int CityID { get; set; }
         public City City { get; set; }
 
+        public int GuideID { get; set; }
+        public Guide Guide { get; set; }
+
     }
 }
