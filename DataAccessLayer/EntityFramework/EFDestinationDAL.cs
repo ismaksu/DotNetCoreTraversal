@@ -31,6 +31,7 @@ namespace DataAccessLayer.EntityFramework
             {
                 return c.Destinations
                         .Include(x => x.City)
+                        .Include(x => x.Guide)
                         .Where(x => x.DestinationID == id)
                         .FirstOrDefault();
             }

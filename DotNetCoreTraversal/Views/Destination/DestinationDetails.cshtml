@@ -44,18 +44,18 @@
             </h3>
             <div class="blog-post-align">
                 <div class="blog-post-img">
-                    <a href="#"><img src="~/userPages/assets/images/c1.jpg" alt="" class="rounded-circle img-fluid" /></a>
+                    <a href="#"><img src="~/userImages/@Model.Guide.Image" alt="" class="rounded-circle img-fluid" /></a>
                 </div>
                 <div class="blog-post-info">
-                    <div class="author align-items-center mb-1">
-                        <a href="#">Johnson smith</a> in <a href="#url">Traversal</a>
+                    <div class="text-secondary align-items-center mb-1">
+                        @Model.Guide.Name
                     </div>
                     <ul class="blog-meta">
                         <li class="meta-item blog-lesson">
-                            <span class="meta-value"> June 13, 2020 </span>
+                            <span class="meta-value"> @Model.BlogDate.ToString("MMMM dd, yyyy") </span>
                         </li>
                         <li class="meta-item blog-students">
-                            <span class="meta-value"> 6min read</span>
+                            <span class="meta-value"> @Model.BlogDate.ToString("HH:mm")</span>
                         </li>
                     </ul>
                 </div>
@@ -134,7 +134,7 @@
                     </div>
 
                     <!--//author-card-->
-                    @await Component.InvokeAsync("_GuideDetails")
+                    @await Component.InvokeAsync("_GuideDetails", new { id = Model.GuideID })
                     <!--//author-card-->
                     @*ViewComponents*@
 

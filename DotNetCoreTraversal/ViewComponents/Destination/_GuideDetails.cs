@@ -15,9 +15,9 @@ namespace DotNetCoreTraversal.ViewComponents.Destination
             _guideService = guideService;
         }
 
-        public IViewComponentResult Invoke()
+        public IViewComponentResult Invoke(int id)
         {
-            var values = _guideService.FindEntityByID(1);
+            var values = _guideService.FindEntityByID(id);
             return View(values);
         }
     }
