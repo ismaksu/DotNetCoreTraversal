@@ -2,6 +2,7 @@
 using DTOLayer.DTOs.AnnouncementDTOs;
 using DTOLayer.DTOs.AppUserDTOs;
 using DTOLayer.DTOs.CityDTOs;
+using DTOLayer.DTOs.ContactDTOs;
 using EntityLayer.Concrete;
 
 namespace DotNetCoreTraversal.Mapping.AutoMapperProfile
@@ -19,6 +20,8 @@ namespace DotNetCoreTraversal.Mapping.AutoMapperProfile
 
             CreateMap<CityAddDTO, Destination>();
             CreateMap<Destination, CityAddDTO>();
+
+            CreateMap<SendMessageDto, ContactUs>().ReverseMap();
 
             CreateMap<AppUserRegisterDTO, AppUser>();
             CreateMap<AppUser, AppUserRegisterDTO>();

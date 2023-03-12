@@ -1,4 +1,4 @@
-﻿@model ContactUs
+﻿@model DTOLayer.DTOs.ContactDTOs.SendMessageDto
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_UserLayout.cshtml";
@@ -36,7 +36,7 @@
                             </p>
                             <h6 class="mt-4">Bizi Ziyaret Edin:</h6>
                             <p> 78-80 Upper St Giles St. Norwich NR2 1LT United Kingdom.</p>
-                            <h6 class="mt-4">Contact:</h6>
+                            <h6 class="mt-4">Telefon Numaramız</h6>
                             <p class="margin-top"><a href="tel:+44-255-366-88">+44-255-366-88</a></p>
                         </div>
                     </div>
@@ -46,16 +46,20 @@
                         <div class="input-grids">
                             <div class="form-group">
                                 <input type="text" asp-for="Name" id="w3lName" placeholder="İsminiz*" class="contact-input" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <input type="email" asp-for="Mail" id="w3lSender" placeholder="Mail Adresiniz*" class="contact-input" required="" />
+                                <span asp-validation-for="Mail" class="text-danger"></span>
                             </div>
                             <div class="form-group">
                                 <input type="text" asp-for="Subject" id="w3lSubect" placeholder="Konu*" class="contact-input" />
+                                <span asp-validation-for="Subject" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <textarea asp-for="MessageBody" id="w3lMessage" placeholder="Mesajınız..*" required=""></textarea>
+                            <span asp-validation-for="MessageBody" class="text-danger"></span>
                         </div>
                         <div class="text-right">
                             <button type="submit" class="btn btn-style btn-primary">İletiyi Gönder</button>

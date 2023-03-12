@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Abstract;
+using DTOLayer.DTOs.ContactDTOs;
 using EntityLayer.Concrete;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -25,13 +26,23 @@ namespace DotNetCoreTraversal.Controllers
             return View();
         }
 
-        [HttpPost] 
-        public IActionResult Index(ContactUs contact)
+        [HttpPost]
+        public IActionResult Index(SendMessageDto contact)
         {
-            contact.MessageDate = DateTime.Now;
-            contact.Status = true;
-            _contactService.AddEntity(contact);
-            return RedirectToAction("Index", "Default");
+            if (ModelState.IsValid)
+            {
+                _contactService.AddEntity(new ContactUs()
+                {
+                    MessageBody = contact.MessageBody,
+                    Subject = contact.Subject,
+                    Name = contact.Name,
+                    Mail = contact.Mail,
+                    MessageDate = DateTime.Now,
+                    Status = true
+                });
+                return RedirectToAction("Index", "Default");
+            }
+            return View(contact);
         }
     }
 }
