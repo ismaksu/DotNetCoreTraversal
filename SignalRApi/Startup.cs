@@ -8,6 +8,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using SignalRApi.DAL;
+using SignalRApi.Hubs;
+using SignalRApi.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +29,18 @@ namespace SignalRApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<VisitorService>();
+            services.AddSignalR();
+
+            services.AddCors(options => options.AddPolicy("CorsPolicy",
+                builder =>
+                {
+                    builder.AllowAnyHeader()
+                           .AllowAnyMethod()
+                           .SetIsOriginAllowed((host) => true)
+                           .AllowCredentials();
+                }));
+
             services.AddEntityFrameworkNpgsql().AddDbContext<Context>(opt =>
                 opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -48,12 +62,13 @@ namespace SignalRApi
             }
 
             app.UseRouting();
-
+            app.UseCors("CorsPolicy");
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapHub<VisitorHub>("/VisitorHub");
             });
         }
     }
