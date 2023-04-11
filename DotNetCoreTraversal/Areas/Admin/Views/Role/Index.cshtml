@@ -1,0 +1,46 @@
+﻿@model List<AppRole>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_AdminDashboardLayout.cshtml";
+}
+
+
+
+<div class="card">
+    <div class="card-header"><h3>Admin Rol İşlemleri - Rol Listesi</h3></div>
+    <div class="card-body">
+
+        @if (Model.Count > 0)
+        {
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Rol Adı</th>
+                        <th>İşlemler</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <th>@item.Id</th>
+                            <td>@item.Name</td>
+                            <td>
+                                <a class="btn btn-outline-warning" href="/Admin/Role/UpdateRole/@item.Id"><i class="bx bx-edit"></i>&nbsp;Rolü Düzenle</a> &nbsp;
+                                <a class="btn btn-danger" href="/Admin/Role/DeleteRole/@item.Id"><i class="bx bx-x"></i>&nbsp;Rolü Sil</a>
+                            </td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+        }
+        else
+        {
+            <h4 class="alert alert-warning">Herhangi bir kayıtlı rol bulunamadı..</h4>
+        }
+        <br />
+        <a href="/Admin/Role/CreateRole/" class="btn btn-success"><i class="bx bx-plus"></i>&nbsp;Yeni Rol Ekle</a>
+    </div>
+</div>
