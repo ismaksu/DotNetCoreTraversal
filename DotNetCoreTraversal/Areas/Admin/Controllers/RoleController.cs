@@ -14,10 +14,12 @@ namespace DotNetCoreTraversal.Areas.Admin.Controllers
     public class RoleController : Controller
     {
         private readonly RoleManager<AppRole> _roleManager;
+        private readonly UserManager<AppUser> _userManager;
 
-        public RoleController(RoleManager<AppRole> roleManager)
+        public RoleController(RoleManager<AppRole> roleManager, UserManager<AppUser> userManager)
         {
             _roleManager = roleManager;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
@@ -52,7 +54,7 @@ namespace DotNetCoreTraversal.Areas.Admin.Controllers
             await _roleManager.DeleteAsync(value);
             return RedirectToAction("Index");
         }
-
+        
         public IActionResult UpdateRole (int id)
         {
             var value = _roleManager.Roles.FirstOrDefault(x => x.Id == id);
@@ -71,6 +73,29 @@ namespace DotNetCoreTraversal.Areas.Admin.Controllers
             value.Name = role.RoleName;
             await _roleManager.UpdateAsync(value);
             return RedirectToAction("Index");
+        }
+
+        public IActionResult UserList()
+        {
+            var values = _userManager.Users.ToList();
+            return View(values);
+        }
+
+        public async Task<IActionResult> AssignRole(int id)
+        {
+            var user = _userManager.Users.FirstOrDefault(x => x.Id == id);
+            var roles = _roleManager.Roles.ToList();
+            var userRoles = await _userManager.GetRolesAsync(user);
+            List<RoleAssignViewModel> rav = new List<RoleAssignViewModel>();
+            foreach (var item in roles)
+            {
+                RoleAssignViewModel model = new RoleAssignViewModel();
+                model.RoleId = item.Id;
+                model.RoleName = item.Name;
+                model.RoleExists = userRoles.Contains(item.Name);
+                rav.Add(model);
+            }
+            return View(rav);
         }
     }
 }
