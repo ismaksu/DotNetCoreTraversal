@@ -12,5 +12,6 @@ namespace DataAccessLayer.Abstract
         public List<Destination> ListDestination();
         public Destination GetDestinationByID(int id);
         public List<Destination> GetDestinationByCity(int id);
+        public List<Destination> GetLast4Destinations();
     }
 }

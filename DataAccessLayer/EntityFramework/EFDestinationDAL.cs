@@ -37,6 +37,13 @@ namespace DataAccessLayer.EntityFramework
             }
         }
 
+        public List<Destination> GetLast4Destinations()
+        {
+            using var context = new Context();
+            var values = context.Destinations.Include(x => x.City).Take(4).OrderByDescending(x => x.DestinationID).ToList();
+            return values;
+        }
+
         public List<Destination> ListDestination()
         {
             using (var c = new Context())

@@ -11,6 +11,7 @@ namespace BusinessLayer.Abstract
     {
         public List<Destination> GetDestinationByCity(int id);
         public List<Destination> ListDestination();
+        public List<Destination> GetLast4Destinations();
         public Destination GetDestinationByID(int id);
     }
 }
