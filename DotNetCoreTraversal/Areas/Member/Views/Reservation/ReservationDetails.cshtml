@@ -1,11 +1,11 @@
 ﻿@model Reservation
 @{
     ViewData["Title"] = "DestinationDetails";
-    Layout = "~/Views/Shared/_UserDashboardLayout.cshtml";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
 }
 
 <style>
-    img {
+    .cityImage {
         height: 100px !important;
         width: auto !important;
     }
@@ -18,25 +18,25 @@
         <div class="row h6 align-items-center">
             <div class="col-3">
                 Rezervasyon Yapılan Şehir:
-                <div class="mt-2">
-                    <img src="@Model.Destination.Image" class="img-thumbnail rounded" /> &nbsp; <a href="/Destination/DestinationDetails/@Model.DestinationID">@Model.Destination.City.CityName</a>
+                <div class="mt-2" style="zoom: 110%;">
+                    <img src="@Model.Destination.Image" class="img-thumbnail rounded cityImage" /> &nbsp; <a href="/Destination/DestinationDetails/@Model.DestinationID">@Model.Destination.City.CityName</a>
                 </div>
             </div>
             <div class="col-3 text-center">
                 Rezervasyon Yapılma Tarihi:<br />
-                <div class="text-bold text-primary">@Model.ReservationDate.ToString("dd.MM.yyyy [HH:mm]")</div>
+                <h3 class="text-bold text-primary">@Model.ReservationDate.ToString("dd.MM.yyyy [HH:mm]")</h3>
             </div>
             <div class="col-3 text-center">
                 Kişi Sayısı:<br />
-                <div class="text-bold text-success">@Model.PersonCount</div>
+                <h3 class="text-bold text-success"><b>@Model.PersonCount</b></h3>
             </div>
             <div class="col-3 text-center">
                 Rezervasyon Durumu:<br />
-                <div class="text-bold text-info">@Model.ReservationStat</div>
+                <h3 class="text-bold text-info">@Model.ReservationStat</h3>
             </div>
         </div>
         <br />
-        <div class="container-fluid">
+        <div class="container-fluid" style="zoom: 120%;">
             <h4>Notlar: </h4>
             <br />
             <p>@Model.Description</p>

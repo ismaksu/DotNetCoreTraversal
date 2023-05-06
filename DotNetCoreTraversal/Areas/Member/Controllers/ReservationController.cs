@@ -16,8 +16,6 @@ namespace DotNetCoreTraversal.Areas.Member.Controllers
     [Route("Member/[controller]/[action]/{id?}")]
     public class ReservationController : Controller
     {
-        ReservationManager rm = new ReservationManager(new EFReservationDAL());
-
         private readonly IDestinationService _destinationService;
         private readonly IReservationService _reservationService;
         private readonly UserManager<AppUser> _userManager;
@@ -31,14 +29,14 @@ namespace DotNetCoreTraversal.Areas.Member.Controllers
 
         public IActionResult ReservationDetails (int id)
         {
-            var values = rm.GetReservationByID(id);
+            var values = _reservationService.GetReservationByID(id);
             return View(values);
         }
 
         public async Task<IActionResult> CurrentReservations()
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
-            var values = rm.GetAcceptedReservation(user.Id);
+            var values = _reservationService.GetAcceptedReservation(user.Id);
             return View(values);
         }
 
@@ -46,7 +44,7 @@ namespace DotNetCoreTraversal.Areas.Member.Controllers
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var userId = user.Id;
-            var values = rm.GetPreviousReservation(userId);
+            var values = _reservationService.GetPreviousReservation(userId);
             return View(values);
         }
 
@@ -54,7 +52,7 @@ namespace DotNetCoreTraversal.Areas.Member.Controllers
         {
             var user = await _userManager.FindByNameAsync(User.Identity.Name);
             var userId = user.Id;
-            var values = rm.GetApprovalReservation(userId);
+            var values = _reservationService.GetApprovalReservation(userId);
             return View(values);
         }
 
@@ -79,7 +77,7 @@ namespace DotNetCoreTraversal.Areas.Member.Controllers
 
             p.ReservationStat = "Rezervasyon Onay Bekliyor..";
             p.AppUserId = userId;
-            rm.AddEntity(p);
+            _reservationService.AddEntity(p);
             return RedirectToAction("CurrentReservations", "Reservation", new { area = "Member" });
         }
     }
