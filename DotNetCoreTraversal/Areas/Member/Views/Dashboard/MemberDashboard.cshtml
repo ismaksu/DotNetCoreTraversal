@@ -1,0 +1,23 @@
+﻿
+@{
+    ViewData["Title"] = "MemberDashboard";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+
+<!-- Chart -->
+<div class="row match-height">
+    <div class="col-12">
+        <div class="">
+            <div id="gradient-line-chart1" class="height-250 GradientlineShadow1"></div>
+        </div>
+    </div>
+</div>
+<!-- Chart -->
+
+<!-- Statistics -->
+<div class="row match-height">
+    @await Component.InvokeAsync("MemberStatistics")
+    
+    @await Component.InvokeAsync("GuideList")
+</div>
+<!--/ Statistics -->

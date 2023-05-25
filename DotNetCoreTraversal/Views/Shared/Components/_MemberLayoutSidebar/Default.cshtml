@@ -1,0 +1,54 @@
+﻿<div class="main-menu menu-fixed menu-light menu-accordion    menu-shadow " data-scroll-to-active="true" data-img="theme-assets/images/backgrounds/02.jpg">
+    <div class="navbar-header">
+        <ul class="nav navbar-nav flex-row">
+            <li class="nav-item mr-auto">
+                <a class="navbar-brand" href="~/memberLyt/index.html">
+                    <img class="brand-logo" alt="Chameleon admin logo" src="~/memberLyt/theme-assets/images/logo/logo.png" />
+                    <h3 class="brand-text">ISM Traversal</h3>
+                </a>
+            </li>
+            <li class="nav-item d-md-none"><a class="nav-link close-navbar"><i class="ft-x"></i></a></li>
+        </ul>
+    </div>
+    <div class="main-menu-content">
+        <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+            <li @*class="active"*@>
+                <a href="/Member/Dashboard/MemberDashboard"><i class="ft-home"></i><span class="menu-title" data-i18n="">Dashboard</span></a>
+            </li>
+            <li>
+                <a href="/Member/Destination/Index"><i class="ft-map"></i><span class="menu-title" data-i18n="">Rotalar</span></a>
+            </li>
+            <li>
+                <a href="/Member/UserProfile/Index"><i class="ft-user"></i><span class="menu-title" data-i18n="">Profilim</span></a>
+            </li>
+            <li>
+                <a href="/Member/Comment/Index"><i class="ft-message-circle"></i><span class="menu-title" data-i18n="">Yorumlarım</span></a>
+            </li>
+            <li>
+                <a href="/Member/LastDestinations/Index"><i class="ft-navigation"></i><span class="menu-title" data-i18n="">Son Rotalar</span></a>
+            </li>
+
+            <li class="nav-item has-sub">
+                <a href="#"><i class="ft-map-pin"></i><span class="menu-title" data-i18n="">Rezervasyonlarım</span></a>
+                <ul class="menu-content">
+                    <li>
+                        <a href="/Member/Reservation/ApprovalReservations" class="menu-item">Onay Bekleyen</a>
+                        <a href="/Member/Reservation/CurrentReservations" class="menu-item">Aktif/Onaylanmış</a>
+                        <a href="/Member/Reservation/OldReservations" class="menu-item">Geçmiş</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="/Member/Reservation/NewReservation"><i class="ft-plus-circle"></i><span class="menu-title" data-i18n="">Rezervasyon Yap</span></a>
+            </li>
+            <li>
+                <a href="/Default/Index/"><i class="ft-layout"></i><span class="menu-title" data-i18n="">Siteye Git</span></a>
+            </li>
+            <li>
+                <a href="/Login/Logout/"><i class="ft-log-out"></i><span class="menu-title" data-i18n="">Çıkış Yap</span></a>
+            </li>
+        </ul>
+    </div>
+    <div class="navigation-background"></div>
+</div>

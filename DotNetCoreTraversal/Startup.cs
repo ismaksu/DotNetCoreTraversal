@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -73,7 +74,12 @@ namespace DotNetCoreTraversal
                 config.Filters.Add(new AuthorizeFilter(policy));
             });
 
-            services.AddMvc();
+            services.AddLocalization(opt =>
+            {
+                opt.ResourcesPath = "Resources";
+            });
+
+            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
             services.AddMvcCore();
         }
 
@@ -92,6 +98,11 @@ namespace DotNetCoreTraversal
             app.UseRouting();
 
             app.UseAuthorization();
+
+            var supportedCultures = new[] { "en", "fr", "es", "tr", "gr", "de" };
+            var localizationOptions = new RequestLocalizationOptions().SetDefaultCulture(supportedCultures[4]).AddSupportedCultures(supportedCultures).AddSupportedUICultures(supportedCultures);
+
+            app.UseRequestLocalization(localizationOptions);
 
             app.UseEndpoints(endpoints =>
             {
