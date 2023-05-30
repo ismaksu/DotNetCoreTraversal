@@ -1,9 +1,11 @@
 ﻿using DotNetCoreTraversal.Models;
 using EntityLayer.Concrete;
+using MailKit.Net.Smtp;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using MimeKit;
 using System;
 using System.Threading.Tasks;
 
@@ -97,6 +99,74 @@ namespace DotNetCoreTraversal.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Default");
+        }
+
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async  Task<IActionResult> ForgotPassword(ForgotPasswordViewModel fpvm)
+        {
+            var user = await _userManager.FindByEmailAsync(fpvm.Mail);
+            string passwordResetToken = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var passwordResetTokenLink = Url.Action("ChangePassword", "Login", new
+            {
+                userId = user.Id,
+                token = passwordResetToken
+            }, HttpContext.Request.Scheme);
+
+            MimeMessage message = new MimeMessage();
+            MailboxAddress mailboxAddressFrom = new MailboxAddress("ISM Traversal", "ismtraversalresmi@gmail.com");
+
+            message.From.Add(mailboxAddressFrom);
+
+            MailboxAddress mailboxAddressTo = new MailboxAddress("Kullanıcı", fpvm.Mail);
+            message.To.Add(mailboxAddressTo);
+
+            var bodyBuilder = new BodyBuilder();
+            bodyBuilder.TextBody = "Aşağıdaki bağlantıya tıklayarak şifrenizi sıfırlayabilirsiniz:\n" + passwordResetTokenLink;
+            message.Body = bodyBuilder.ToMessageBody();
+
+            message.Subject = "ISM Traversal - Şifre Sıfırlama Talebi";
+
+            SmtpClient client = new SmtpClient();
+            client.Connect("smtp.gmail.com", 587, false);
+            client.Authenticate("mail", "password");
+            client.Send(message);
+            client.Disconnect(true);
+
+            return View();
+        }
+
+        [HttpGet]
+        public IActionResult ChangePassword(string userid, string token)
+        {
+            TempData["userid"] = userid;
+            TempData["token"] = token;
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangePassword(ChangePasswordViewModel cpvm)
+        {
+            var userid = TempData["userid"];
+            var token = TempData["token"];
+            if (userid == null || token == null)
+            {
+                //error
+            }
+            var user = await _userManager.FindByIdAsync(userid.ToString());
+            var result = await _userManager.ResetPasswordAsync(user, token.ToString(), cpvm.Password);
+            if (result.Succeeded)
+            {
+                return RedirectToAction("Index", "Login");
+            }
+
+            return View();
         }
     }
 }

@@ -1,0 +1,41 @@
+﻿@using EntityLayer.Concrete
+@model List<Destination>
+@{
+    ViewData["Title"] = "Search";
+    Layout = "~/Views/Shared/_MemberLayout.cshtml";
+}
+
+<div class="card">
+    <h3 class="card-header">Tur Rotası Arama Sayfası</h3>
+    <div class="card-body">
+        <form asp-action="Search" method="get" asp-area="Member">
+            <div>
+                <p>Lütfen aranacak şehri giriniz: </p> <input type="text" class="form-control" name="searchString" value="@ViewData["CurrentFilter"]" />
+                <br />
+                <button type="submit" class="btn btn-success">Şehir Ara</button>
+            </div>
+        </form>
+        <br />
+        <table class="table table-hover">
+            <tr>
+                <th>#</th>
+                <th>Şehir</th>
+                <th>Süre</th>
+                <th>Kapasite</th>
+                <th>Fiyat</th>
+                <th>İşlemler</th>
+            </tr>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.DestinationID</td>
+                    <td>@item.City.CityName</td>
+                    <td>@item.DayNight</td>
+                    <td>@item.Capacity</td>
+                    <td>$@item.Price</td>
+                    <td><a href="/Destination/DestinationDetails/@item.DestinationID" class="btn btn-secondary">Ayrıntılar</a></td>
+                </tr>
+            }
+        </table>
+    </div>
+</div>
