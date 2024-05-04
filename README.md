@@ -27,4 +27,3 @@ Projeye ait görseller:
 ![image](https://github.com/ismaksu/DotNetCoreTraversal/assets/94977027/187a48b8-e77b-4948-a87f-687405c8c4d9)
 ![image](https://github.com/ismaksu/DotNetCoreTraversal/assets/94977027/9104bb49-8900-4d1e-b39f-7bc19644e134)
 ![image](https://github.com/ismaksu/DotNetCoreTraversal/assets/94977027/b493d21a-c835-4884-adcc-598d26d10224)
-![image](https://github.com/ismaksu/DotNetCoreTraversal/assets/94977027/e386e21f-6919-4622-be1c-cd1f8aa6d6c7)
